@@ -1,1 +1,1 @@
-gcc fdf_hello.c -I /usr/X11/include -g -L /usr/X11/lib -l mlx -framework OpenGL -framework AppKit
+gcc fdf_hello.c -I /usr/X11/include -g -L /usr/X11/lib -lmlx -framework OpenGL -framework AppKit

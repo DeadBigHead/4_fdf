@@ -77,7 +77,8 @@ SRC	= 	$(PATH_SRC)ft_atoi.c \
 		$(PATH_SRC)ft_toupper.c \
 		$(PATH_SRC)ft_overlapn.c \
 		$(PATH_SRC)ft_count_words.c \
-		$(PATH_SRC)ft_count_words_size.c
+		$(PATH_SRC)ft_count_words_size.c \
+		$(PATH_SRC)get_next_line.c
 
 OBJECT	= $(SRC:.c=.o)
 HEADERS	= $(PATH_HEAD)
