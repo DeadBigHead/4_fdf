@@ -1,1 +1,17 @@
 gcc fdf_hello.c -I /usr/X11/include -g -L /usr/X11/lib -lmlx -framework OpenGL -framework AppKit
+
+
+cmake_minimum_required(VERSION 3.5)
+project(gnl)
+
+file(GLOB SOURCES *.c)
+
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Werror")
+
+#set(SOURCE_FILES SOURCES)
+file(GLOB SOURCES_LIB libft/*.c) # Создание статической библиотеки с именем libft
+add_library(ft STATIC ${SOURCES_LIB}) # Линковка программы с библиотекой
+
+include_directories("libft/includes/" "./")
+add_executable(gnl ${SOURCES})
+TARGET_LINK_LIBRARIES(gnl ft)
