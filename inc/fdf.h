@@ -21,8 +21,15 @@
 # include <fcntl.h>
 # include <mlx.h>
 # include "libft.h"
+# include "get_next_line.h"
 
 typedef unsigned int	t_ui;
+
+# define USAGE 1
+# define LINE 2
+# define COLOR 3
+# define TRUE 1
+# define FALSE -1
 
 typedef struct			s_pixel
 {
@@ -42,4 +49,6 @@ typedef struct			s_mlx
 	void				*mlx_win;
 }						t_mlx;
 
+void					fdf_error(int n);
+void					fdf_validate(char *s);
 #endif
