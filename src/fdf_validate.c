@@ -46,6 +46,9 @@ void	fdf_read(t_map *map)
 	close(map->fd);
 }
 
+/*
+** test
+*/
 void	fdf_validate(t_map *map)
 {
 	map->map_x = 0;
