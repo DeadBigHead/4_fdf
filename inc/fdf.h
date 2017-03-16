@@ -49,6 +49,16 @@ typedef struct			s_mlx
 	void				*mlx_win;
 }						t_mlx;
 
+typedef struct			s_map
+{
+	int 				fd;
+	size_t				map_x;
+	size_t				tmp_x;
+	size_t				map_y;
+	char 				*line;
+	char 				**name;
+}						t_map;
+
 void					fdf_error(int n);
-void					fdf_validate(char *s);
+void					fdf_validate(t_map *map);
 #endif

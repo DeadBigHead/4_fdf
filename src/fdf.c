@@ -2,10 +2,15 @@
 
 int main(int ac, char **av)
 {
+	t_map	map;
+	char 	*tmp;
 
 	if (ac == 2)
 	{
-		fdf_validate(av[1]);
+		map.name = av;
+		fdf_validate(&map);
+		printf("map_x - %zu\n", map.map_x);
+		printf("map_y - %zu\n", map.map_y);
 	}
 	else
 		fdf_error(USAGE);
