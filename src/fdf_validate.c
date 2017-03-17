@@ -43,12 +43,10 @@ void	fdf_read(t_map *map)
 			fdf_error(LINE);
 		}
 	}
-	close(map->fd);
+	if ((close(map->fd)) == -1)
+		fdf_error(LINE);
 }
 
-/*
-** test
-*/
 void	fdf_validate(t_map *map)
 {
 	map->map_x = 0;

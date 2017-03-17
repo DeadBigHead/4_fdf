@@ -3,14 +3,15 @@
 int main(int ac, char **av)
 {
 	t_map	map;
-	char 	*tmp;
+	t_mlx	pixel;
 
 	if (ac == 2)
 	{
 		map.name = av;
 		fdf_validate(&map);
-		printf("map_x - %zu\n", map.map_x);
-		printf("map_y - %zu\n", map.map_y);
+		fdf_coordinates(&map, &pixel);
+//		printf("map_x - %zu\n", map.map_x);
+//		printf("map_y - %zu\n", map.map_y);
 	}
 	else
 		fdf_error(USAGE);

@@ -22,4 +22,16 @@ void	fdf_error(int n)
 		write(1, use, ft_strlen(use));
 		exit(0);
 	}
+	else if (n == MALLCHECK)
+	{
+		use = "Error: malloc allocation fail. Exiting.\n";
+		write(1, use, ft_strlen(use));
+		exit(0);
+	}
+	else if (n == FCLOSE)
+	{
+		use = "Error: file close fail. Exiting.\n";
+		write(1, use, ft_strlen(use));
+		exit(0);
+	}
 }

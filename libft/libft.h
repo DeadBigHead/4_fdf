@@ -16,7 +16,6 @@
 # include <string.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include "get_next_line.h"
 
 typedef struct		s_list
 {
@@ -25,10 +24,6 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
-/*
-** gnl
-*/
-int	get_next_line(const int fd, char **line);
 /*
 ** lists
 */

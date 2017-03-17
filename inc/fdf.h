@@ -24,22 +24,28 @@
 # include "get_next_line.h"
 
 typedef unsigned int	t_ui;
+typedef unsigned char	t_ch;
 
 # define USAGE 1
 # define LINE 2
 # define COLOR 3
+# define MALLCHECK 4
+# define FCLOSE 5
 # define TRUE 1
 # define FALSE -1
 
+/*
+** Single pixel data.
+*/
 typedef struct			s_pixel
 {
 	float				x;
 	float				y;
 	float				z;
-	t_ui				red;
-	t_ui				green;
-	t_ui				blue;
-	t_ui				alpha;
+	t_ch				red;
+	t_ch				green;
+	t_ch				blue;
+	t_ch				alpha;
 }						t_pixel;
 
 typedef struct			s_mlx
@@ -61,4 +67,5 @@ typedef struct			s_map
 
 void					fdf_error(int n);
 void					fdf_validate(t_map *map);
+void					fdf_coordinates(t_map *map, t_mlx *pixel);
 #endif
