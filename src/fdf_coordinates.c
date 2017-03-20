@@ -1,73 +1,98 @@
 #include "fdf.h"
 
-/*
-** Allocates memory for the array of struct.
-*/
-void	mal_pixel(t_map *map, t_mlx *pixel)
+void	set_z(t_map *map)
 {
-	int		i;
-	int 	j;
+	char	*tmp;
 
-	i = 0;
-	j = 0;
-	pixel->m_pixels = (t_pixel***)malloc(sizeof(t_pixel**) * map->map_y);
-	if (pixel->m_pixels == NULL)
-		fdf_error(MALLCHECK);
-	while (i <= map->map_y)
-	{
-		pixel->m_pixels[i] = (t_pixel**)malloc(sizeof(t_pixel*) * map->map_x);
-		if (pixel->m_pixels[i] == NULL)
-			fdf_error(MALLCHECK);
-		while (j <= map->map_x)
-		{
-			pixel->m_pixels[i][j] = (t_pixel*)malloc(sizeof(t_pixel));
-			if (pixel->m_pixels[i][j] == NULL)
-				fdf_error(MALLCHECK);
-			j++;
-		}
-		i++;
-	}
+	map->end = map->beg;
+	while (ft_isdigit(map->line[map->end]) == 1)
+		map->end++;
+	tmp = ft_strsub(map->line, map->beg, (map->end - map->beg));
+	map->tmp_z[map->i] = ft_atoi(tmp);
+	map->i++;
+	free(tmp);
 }
 
-void	atoi_pixel(t_map *map, t_mlx *pixel)
+void	set_color(t_map *map, t_mlx *pixel)
 {
-	int i;
-	int k;
+	pixel->m_pixels[map->c][map->r]->red = map->tmp_z[j];
+}
 
-	i = 0;
-	k = 0;
-	while (map->line[i])
+void	color_and_z(t_map *map, t_mlx *pixel)
+{
+	map->beg = map->end;
+	if (map->line[map->beg] == '\0')
+		return;
+	while (map->line[map->beg] != '\0' && map->line[map->beg] == ' ')
+		map->beg++;
+	if (ft_isdigit(map->line[map->beg]) == 0)
 	{
-		i = k;
-		while (ft_isdigit(map->line[k]) == 1)
-		{
-			k++;
-		}
-		if (map->line[i] != ' ' &&
-				(map->line[i + 1] == ' ' || map->line[i + 1] == '\0'))
-		{
-			map->map_x++;
-		}
-		i++;
+		map->tmp_z[map->i] = 0;
+		map->i++;
 	}
+	else if (ft_isdigit(map->line[map->beg]) == 1)
+	{
+		set_z(map);
+	}
+	while (map->line[map->end] != ' ' && map->line[map->end] != '\0')
+	{
+		if (map->line[map->end] == ',' && map->line[map->end + 1] == '0'
+			&& map->line[map->end + 2] == 'x')
+			fdf_set_color(map, pixel);
+		map->end++;
+	}
+	color_and_z(map, pixel);
 }
 
 void	handle_pixel(t_map *map, t_mlx *pixel)
 {
-	map->map_y = 0;
-	map->fd = open(map->name[1], O_RDONLY);
-	while (get_next_line(map->fd, &map->line) == 1)
+	map->c = 0;
+	while (map->c < map->map_y)
 	{
-		atoi_pixel(map, pixel);
+		map->r = 0;
+		pixel->m_pixels[map->c][map->r]->y = map->c;
+		get_next_line(map->fd, &map->line);
+		map->end = 0;
+		map->i = 0;
+		map->tmp_z = (int*)malloc(sizeof(int) * map->map_x);
+		if(map->tmp_z == NULL)
+			fdf_error(MALLCHECK);
+		while (map->r < map->map_x)
+		{
+			pixel->m_pixels[map->c][map->r]->x = map->r;
+			color_and_z(map, pixel);
+			pixel->m_pixels[map->c][map->r]->z = map->tmp_z[map->r];
+			set_color(map, pixel);
+			map->r++;
+		}
+		free(map->tmp_z);
 		free(map->line);
-		map->map_y++;
+		map->c++;
 	}
-	if ((close(map->fd)) == -1)
-		fdf_error(LINE);
 }
 
 void	fdf_coordinates(t_map *map, t_mlx *pixel)
 {
-	mal_pixel(map, pixel);
+	int i, j;
+	fdf_mal_pix(map, pixel);
+	map->fd = open(map->name[1], O_RDONLY);
 	handle_pixel(map, pixel);
+	if ((close(map->fd)) == -1)
+		fdf_error(LINE);
+	i = 0;
+	while (i < map->map_y)
+	{
+		j = 0;
+		while (j < map->map_x)
+		{
+			printf("%.0f, ", pixel->m_pixels[i][j]->z);
+			j++;
+		}
+		printf("\n");
+		i++;
+	}
+	printf("%d\n", map->tmp_color[0]);
+	printf("%d\n", map->tmp_color[1]);
+	printf("%d\n", map->tmp_color[2]);
+	printf("%d\n", map->tmp_color[3]);
 }

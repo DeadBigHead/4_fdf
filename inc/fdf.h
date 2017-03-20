@@ -58,6 +58,13 @@ typedef struct			s_mlx
 typedef struct			s_map
 {
 	int 				fd;
+	int 				c;
+	int 				r;
+	int 				*tmp_z;
+	int 				*tmp_color;
+	int 				end;
+	int 				beg;
+	int 				i;
 	size_t				map_x;
 	size_t				tmp_x;
 	size_t				map_y;
@@ -68,4 +75,8 @@ typedef struct			s_map
 void					fdf_error(int n);
 void					fdf_validate(t_map *map);
 void					fdf_coordinates(t_map *map, t_mlx *pixel);
+void					fdf_mal_pix(t_map *map, t_mlx *pixel);
+void					fdf_set_color(t_map *map, t_mlx *pixel);
+int						ft_ishex(char c);
+int						fdf_atoi_hex(char *s);
 #endif
