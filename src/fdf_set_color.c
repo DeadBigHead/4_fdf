@@ -1,50 +1,93 @@
 #include "fdf.h"
 
-
-
-void	fdf_set_color(t_map *map, t_mlx *pixel)
+void	zero_color(t_map *map, int i)
 {
-	char *tmp;
-	int	i;
-	int k;
-
-	while (map->line[map->end] != 'x' && map->line[map->end] != '\0')
-		map->end++;
-	map->end++;
-	i = 0;
-	k = 0;
-	map->tmp_color = (int*)malloc(sizeof(int) * (map->map_x * 4));
-	while (ft_ishex(map->line[map->end]) == 1)
+	if (i / 2 == 0)
 	{
-		if (i == 2)
+		i = 0;
+		while (i <= 3)
 		{
-			tmp = ft_strsub(map->line, (map->end - i), 2);
-			map->tmp_color[k] = fdf_atoi_hex(tmp);
-			free(tmp);
-			k++;
+			map->tmp_color[map->j] = 0;
+			map->j++;
+			i++;
 		}
-		else if (i == 4)
+		return;
+	}
+	else if (i / 2 == 1)
+	{
+		i = 0;
+		while (i <= 2)
 		{
-			tmp = ft_strsub(map->line, (map->end - (i + 2)), 2);
-			map->tmp_color[k] = fdf_atoi_hex(tmp);
-			free(tmp);
-			k++;
+			map->tmp_color[map->j] = 0;
+			map->j++;
+			i++;
 		}
-		else if (i == 6)
+		return;
+	}
+	else if (i / 2 == 2)
+	{
+		i = 0;
+		while (i <= 1)
 		{
-			tmp = ft_strsub(map->line, (map->end - (i + 4)), 2);
-			map->tmp_color[k] = fdf_atoi_hex(tmp);
-			free(tmp);
-			k++;
+			map->tmp_color[map->j] = 0;
+			map->j++;
+			i++;
 		}
-		else if (i == 8)
+		return;
+	}
+	else if (i / 2 == 3)
+	{
+		map->tmp_color[map->j] = 0;
+		map->j++;
+		return;
+	}
+}
+
+void	present_color(t_map *map, int i)
+{
+	char	*tmp;
+	int		v;
+
+	v = map->end;
+	while (map->line[v] != 'x' && map->line[v] != '\0')
+		v++;
+	v++;
+	while (ft_ishex(map->line[v]) == 1 ||
+			ft_ishex(map->line[v - 1]) == 1)
+	{
+		if (i % 2 == 0 && i <= 8 && i >= 2)
 		{
-			tmp = ft_strsub(map->line, (map->end - (i + 6)), 2);
-			map->tmp_color[k] = fdf_atoi_hex(tmp);
+			tmp = ft_strsub(map->line, (v - 2), 2);
+			map->tmp_color[map->j] = fdf_atoi_hex(tmp);
 			free(tmp);
-			k++;
+			map->j++;
 		}
 		i++;
-		map->end++;
+		v++;
 	}
+	i--;
+	zero_color(map, i);
+}
+
+int		fdf_save_color(t_map *map)
+{
+	int		i;
+	int		k;
+
+	i = 0;
+	k = 0;
+	if (map->line[map->end] == ',')
+	{
+		present_color(map, i);
+		k = 1;
+	}
+	else
+	{
+		zero_color(map, k);
+		k = 1;
+	}
+	if (k > 0)
+		return (1);
+	else
+		return (0);
 }

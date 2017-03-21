@@ -34,10 +34,10 @@ void	fdf_read(t_map *map)
 			map->map_y++;
 			continue;
 		}
-		map->tmp_x = count_digits(map->line);
+		map->tmp = count_digits(map->line);
 		free(map->line);
 		map->map_y++;
-		if (map->tmp_x < map->map_x)
+		if (map->tmp < map->map_x)
 		{
 			close(map->fd);
 			fdf_error(LINE);

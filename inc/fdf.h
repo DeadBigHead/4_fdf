@@ -42,10 +42,10 @@ typedef struct			s_pixel
 	float				x;
 	float				y;
 	float				z;
-	t_ch				red;
-	t_ch				green;
-	t_ch				blue;
-	t_ch				alpha;
+	int					red;
+	int					green;
+	int					blue;
+	int					alpha;
 }						t_pixel;
 
 typedef struct			s_mlx
@@ -65,8 +65,9 @@ typedef struct			s_map
 	int 				end;
 	int 				beg;
 	int 				i;
+	int 				j;
 	size_t				map_x;
-	size_t				tmp_x;
+	size_t				tmp;
 	size_t				map_y;
 	char 				*line;
 	char 				**name;
@@ -76,7 +77,8 @@ void					fdf_error(int n);
 void					fdf_validate(t_map *map);
 void					fdf_coordinates(t_map *map, t_mlx *pixel);
 void					fdf_mal_pix(t_map *map, t_mlx *pixel);
-void					fdf_set_color(t_map *map, t_mlx *pixel);
+int						fdf_save_color(t_map *map);
 int						ft_ishex(char c);
 int						fdf_atoi_hex(char *s);
+void					my_color(t_map *map, t_mlx *pixel);
 #endif
