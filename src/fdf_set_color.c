@@ -47,23 +47,26 @@ void	present_color(t_map *map, int i)
 {
 	char	*tmp;
 	int		v;
+	int 	d;
 
 	v = map->end;
 	while (map->line[v] != 'x' && map->line[v] != '\0')
 		v++;
-	v++;
+	d = FALSE;
 	while (ft_ishex(map->line[v]) == 1 ||
-			ft_ishex(map->line[v - 1]) == 1)
+			(map->line[v] == 'x' && (ft_ishex(map->line[v + 1]) == 1 &&
+									d == FALSE)))
 	{
 		if (i % 2 == 0 && i <= 8 && i >= 2)
 		{
-			tmp = ft_strsub(map->line, (v - 2), 2);
+			tmp = ft_strsub(map->line, (v - 1), 2);
 			map->tmp_color[map->j] = fdf_atoi_hex(tmp);
 			free(tmp);
 			map->j++;
 		}
 		i++;
 		v++;
+		d = TRUE;
 	}
 	i--;
 	zero_color(map, i);

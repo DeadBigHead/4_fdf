@@ -25,7 +25,7 @@ void	color_and_z(t_map *map, t_mlx *pixel)
 {
 	map->tmp = 0;
 	map->beg = map->end;
-	if (map->line[map->beg] == '\0')
+	if (map->line[map->beg] == '\0' || map->ctrl == map->map_x)
 		return;
 	while (map->line[map->beg] != '\0' && map->line[map->beg] == ' ')
 		map->beg++;
@@ -47,6 +47,7 @@ void	color_and_z(t_map *map, t_mlx *pixel)
 	}
 	if (map->tmp == 0)
 		fdf_save_color(map);
+	map->ctrl++;
 	color_and_z(map, pixel);
 }
 
@@ -66,6 +67,7 @@ void	handle_pixel(t_map *map, t_mlx *pixel)
 		if(map->tmp_z == NULL)
 			fdf_error(MALLCHECK);
 		int i = 0;
+		map->ctrl = 0;
 		while (map->r < map->map_x)
 		{
 			pixel->m_pixels[map->c][map->r]->x = map->r;

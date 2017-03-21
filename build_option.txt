@@ -32,3 +32,7 @@ file(GLOB SOURCES_LIB ${LIB_PATH}/*.c)
 add_library(ft STATIC ${SOURCES_LIB}/)
 
 target_link_libraries(fdf ft)
+
+
+
+1,0xff345678  2,0xfxfffffx  3,0xffxfffffx  4  5  6  7  8  9  10  11  12  13  14 15  16  17  18  19

@@ -66,6 +66,7 @@ typedef struct			s_map
 	int 				beg;
 	int 				i;
 	int 				j;
+	int 				ctrl;
 	size_t				map_x;
 	size_t				tmp;
 	size_t				map_y;
