@@ -31,6 +31,10 @@ typedef unsigned char	t_ch;
 # define COLOR 3
 # define MALLCHECK 4
 # define FCLOSE 5
+# define FOPEN 6
+# define GNL 7
+# define ZERO 8
+# define OONE 9
 # define TRUE 1
 # define FALSE -1
 
@@ -48,6 +52,9 @@ typedef struct			s_pixel
 	int					alpha;
 }						t_pixel;
 
+/*
+** Minilibx struct.
+*/
 typedef struct			s_mlx
 {
 	struct s_pixel		***m_pixels;
@@ -55,9 +62,11 @@ typedef struct			s_mlx
 	void				*mlx_win;
 }						t_mlx;
 
+/*
+** File read map struct.
+*/
 typedef struct			s_map
 {
-	int 				fd;
 	int 				c;
 	int 				r;
 	int 				*tmp_z;
@@ -67,17 +76,34 @@ typedef struct			s_map
 	int 				i;
 	int 				j;
 	int 				ctrl;
-	size_t				map_x;
+	int 				fd;
 	size_t				tmp;
+	size_t				map_x;
 	size_t				map_y;
 	char 				*line;
 	char 				**name;
 }						t_map;
 
+/*
+** Error handling.
+*/
 void					fdf_error(int n);
+void					fdf_close_file(t_map *map);
+void					fdf_close_line(t_map *map);
+void					fdf_open_file(t_map *map);
+void					fdf_gnl_error(t_map *map, int i);
+void					fdf_nbr_error(t_map *map, size_t i);
+/*
+** Validation.
+*/
 void					fdf_validate(t_map *map);
-void					fdf_coordinates(t_map *map, t_mlx *pixel);
-void					fdf_mal_pix(t_map *map, t_mlx *pixel);
+/*
+** File conversion to struct.
+*/
+void					fdf_pixel_malloc(t_map *map, t_mlx *pixel);
+void					fdf_pixel_read(t_map *map, t_mlx *pixel);
+void					fdf_pixel_color_z(t_map *map, t_mlx *pixel);
+
 int						fdf_save_color(t_map *map);
 int						ft_ishex(char c);
 int						fdf_atoi_hex(char *s);

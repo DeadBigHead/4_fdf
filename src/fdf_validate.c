@@ -1,54 +1,61 @@
 #include "fdf.h"
 
 /*
-** counts number of sequential symbols delimited by spaces
+** count_symbols
+** Counts number of sequential symbols delimited by spaces.
 */
-size_t	count_digits(char *s)
+size_t	count_symbols(t_map *map)
 {
-	size_t	nbr;
+	char 	*s;
 	size_t	i;
+	size_t	nbr;
 
 	i = 0;
 	nbr = 0;
+	s = map->line;
 	while (s[i])
 	{
 		if(s[i] != ' ' && (s[i + 1] == ' ' || s[i + 1] == '\0'))
 			nbr++;
 		i++;
 	}
+	fdf_nbr_error(map, nbr);
 	return (nbr);
 }
 
 /*
-** counts and validates number of sequential symbols in map
+** fdf_validate
+** Validation:
+** Compares the number of sequential symbols from the first line
+** of the given file with the sequential number of symbols from the other lines.
+** If the first line has a lesser amount of numbers than the other lines,
+** the program terminates.
+** Errors:
+** During the validation checks for the ongoing read errors.
+** And checks the number of the given sequential symbols.
+** If the number is less than or equal to 1 the program terminates.
 */
-void	fdf_read(t_map *map)
+void	fdf_validate(t_map *map)
 {
-	map->fd = open(map->name[1], O_RDONLY);
-	while (get_next_line(map->fd, &map->line) == 1)
+	int i;
+
+	map->map_x = 0;
+	fdf_open_file(map);
+	while ((i = get_next_line(map->fd, &map->line)) == 1)
 	{
 		if (map->map_x == 0)
 		{
-			map->map_x = count_digits(map->line);
+			map->map_x = count_symbols(map);
 			free(map->line);
 			map->map_y++;
 			continue;
 		}
-		map->tmp = count_digits(map->line);
+		map->tmp = count_symbols(map);
 		free(map->line);
 		map->map_y++;
-		if (map->tmp < map->map_x)
-		{
-			close(map->fd);
-			fdf_error(LINE);
-		}
+		fdf_close_line(map);
 	}
-	if ((close(map->fd)) == -1)
-		fdf_error(LINE);
-}
-
-void	fdf_validate(t_map *map)
-{
-	map->map_x = 0;
-	fdf_read(map);
+	fdf_gnl_error(map, i);
+	fdf_nbr_error(map, map->map_x);
+	fdf_close_file(map);
 }

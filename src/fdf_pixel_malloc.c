@@ -1,9 +1,10 @@
 #include "fdf.h"
 
 /*
-** fdf_mal_pix - allocates memory for struct array @s_mlx->m_pixels
+** fdf_mal_pix
+** Allocates memory for struct array @s_mlx->m_pixels.
 */
-void	fdf_mal_pix(t_map *map, t_mlx *pixel)
+void	fdf_pixel_malloc(t_map *map, t_mlx *pixel)
 {
 	int		i;
 	int		j;

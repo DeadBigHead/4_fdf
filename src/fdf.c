@@ -9,7 +9,7 @@ int main(int ac, char **av)
 	{
 		map.name = av;
 		fdf_validate(&map);
-		fdf_coordinates(&map, &pixel);
+		fdf_pixel_read(&map, &pixel);
 //		printf("map_x - %zu\n", map.map_x);
 //		printf("map_y - %zu\n", map.map_y);
 	}
