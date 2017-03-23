@@ -34,11 +34,11 @@ void	fdf_pixel_color_z(t_map *map, t_mlx *pixel)
 	{
 		if (map->line[map->end] == ',' && map->line[map->end + 1] == '0'
 			&& map->line[map->end + 2] == 'x' && map->tmp == 0)
-			map->tmp = fdf_save_color(map);
+			map->tmp = fdf_pixel_color(map);
 		map->end++;
 	}
 	if (map->tmp == 0)
-		fdf_save_color(map);
+		fdf_pixel_color(map);
 	map->ctrl++;
 	fdf_pixel_color_z(map, pixel);
 }

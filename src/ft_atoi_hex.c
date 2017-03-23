@@ -1,6 +1,6 @@
 #include "fdf.h"
 
-int fdf_atoi_hex(char *s)
+int ft_atoi_hex(char *s)
 {
 	int        i;
 	int        nbr;

@@ -60,6 +60,11 @@ typedef struct			s_mlx
 	struct s_pixel		***m_pixels;
 	void				*mlx_ptr;
 	void				*mlx_win;
+	void				*mlx_img;
+	char				*mlx_str;
+	int					*bits;
+	int					*size_line;
+	int 				*endian;
 }						t_mlx;
 
 /*
@@ -80,6 +85,10 @@ typedef struct			s_map
 	size_t				tmp;
 	size_t				map_x;
 	size_t				map_y;
+	size_t				tmp_x1;
+	size_t				tmp_y1;
+	size_t				tmp_x2;
+	size_t				tmp_y2;
 	char 				*line;
 	char 				**name;
 }						t_map;
@@ -103,9 +112,11 @@ void					fdf_validate(t_map *map);
 void					fdf_pixel_malloc(t_map *map, t_mlx *pixel);
 void					fdf_pixel_read(t_map *map, t_mlx *pixel);
 void					fdf_pixel_color_z(t_map *map, t_mlx *pixel);
-
-int						fdf_save_color(t_map *map);
+int						fdf_pixel_color(t_map *map);
 int						ft_ishex(char c);
-int						fdf_atoi_hex(char *s);
-void					my_color(t_map *map, t_mlx *pixel);
+int						ft_atoi_hex(char *s);
+/*
+** Draw.
+*/
+void					fdf_draw(t_map *map, t_mlx *pixel);
 #endif

@@ -60,7 +60,7 @@ void	present_color(t_map *map, int i)
 		if (i % 2 == 0 && i <= 8 && i >= 2)
 		{
 			tmp = ft_strsub(map->line, (v - 1), 2);
-			map->tmp_color[map->j] = fdf_atoi_hex(tmp);
+			map->tmp_color[map->j] = ft_atoi_hex(tmp);
 			free(tmp);
 			map->j++;
 		}
@@ -72,7 +72,7 @@ void	present_color(t_map *map, int i)
 	zero_color(map, i);
 }
 
-int		fdf_save_color(t_map *map)
+int		fdf_pixel_color(t_map *map)
 {
 	int		i;
 	int		k;
