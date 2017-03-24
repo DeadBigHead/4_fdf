@@ -62,9 +62,9 @@ typedef struct			s_mlx
 	void				*mlx_win;
 	void				*mlx_img;
 	char				*mlx_str;
-	int					*bits;
-	int					*size_line;
-	int 				*endian;
+	int					bits;
+	int					size_line;
+	int 				endian;
 }						t_mlx;
 
 /*
@@ -85,10 +85,10 @@ typedef struct			s_map
 	size_t				tmp;
 	size_t				map_x;
 	size_t				map_y;
-	size_t				tmp_x1;
-	size_t				tmp_y1;
-	size_t				tmp_x2;
-	size_t				tmp_y2;
+	int					tmp_x1;
+	int					tmp_y1;
+	int					tmp_x2;
+	int					tmp_y2;
 	char 				*line;
 	char 				**name;
 }						t_map;

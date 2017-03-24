@@ -11,8 +11,6 @@ void	set_color(t_map *map, t_mlx *pixel, int i)
 
 void	pixel_write_support(t_map *map, t_mlx *pixel)
 {
-	map->r = 0;
-	pixel->m_pixels[map->c][map->r]->y = map->c;
 	get_next_line(map->fd, &map->line);
 	map->end = 0;
 	map->i = 0;
@@ -32,10 +30,13 @@ void	fdf_pixel_write(t_map *map, t_mlx *pixel)
 	while (map->c < map->map_y)
 	{
 		i = 0;
+		map->r = 0;
+//		pixel->m_pixels[map->c][map->r]->y = map->c;
 		pixel_write_support(map, pixel);
 		while (map->r < map->map_x)
 		{
-			pixel->m_pixels[map->c][map->r]->x = map->r;
+			pixel->m_pixels[map->c][map->r]->x = map->r * 20;
+			pixel->m_pixels[map->c][map->r]->y = map->c * 20;
 			fdf_pixel_color_z(map, pixel);
 			pixel->m_pixels[map->c][map->r]->z = map->tmp_z[map->r];
 			set_color(map, pixel, i);
@@ -66,11 +67,12 @@ void	fdf_pixel_read(t_map *map, t_mlx *pixel)
 		j = 0;
 		while (j < map->map_x)
 		{
-			printf("%.0f ", pixel->m_pixels[i][j]->z);
-			printf("|%d,", pixel->m_pixels[i][j]->red);
-			printf("%d,", pixel->m_pixels[i][j]->green);
-			printf("%d,", pixel->m_pixels[i][j]->blue);
-			printf("%d| ", pixel->m_pixels[i][j]->alpha);
+			printf("%.0f ", pixel->m_pixels[i][j]->x);
+			printf("%.0f |", pixel->m_pixels[i][j]->y);
+//			printf("|%d,", pixel->m_pixels[i][j]->red);
+//			printf("%d,", pixel->m_pixels[i][j]->green);
+//			printf("%d,", pixel->m_pixels[i][j]->blue);
+//			printf("%d| ", pixel->m_pixels[i][j]->alpha);
 			j++;
 		}
 		printf("\n");
@@ -80,8 +82,8 @@ void	fdf_pixel_read(t_map *map, t_mlx *pixel)
 //	printf("%d\n", map->tmp_color[1]);
 //	printf("%d\n", map->tmp_color[2]);
 //	printf("%d\n", map->tmp_color[3]);
-	printf("|%d,", pixel->m_pixels[0][0]->red);
-	printf("|%d,", pixel->m_pixels[0][0]->green);
-	printf("|%d,", pixel->m_pixels[0][0]->blue);
-	printf("|%d,", pixel->m_pixels[0][0]->alpha);
+//	printf("|%d,", pixel->m_pixels[0][0]->red);
+//	printf("|%d,", pixel->m_pixels[0][0]->green);
+//	printf("|%d,", pixel->m_pixels[0][0]->blue);
+//	printf("|%d,", pixel->m_pixels[0][0]->alpha);
 }

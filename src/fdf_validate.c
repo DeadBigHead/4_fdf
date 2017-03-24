@@ -40,6 +40,7 @@ void	fdf_validate(t_map *map)
 	int i;
 
 	map->map_x = 0;
+	map->map_y = 0;
 	fdf_open_file(map);
 	while ((i = get_next_line(map->fd, &map->line)) == 1)
 	{
