@@ -38,6 +38,21 @@ typedef unsigned char	t_ch;
 # define TRUE 1
 # define FALSE -1
 
+# define MINZ -100
+# define MAXZ 10
+
+# define RED0 0
+# define GREEN0 220
+# define BLUE0 0
+
+# define RED1 220
+# define GREEN1 0
+# define BLUE1 0
+
+# define RED2 0
+# define GREEN2 0
+# define BLUE2 220
+
 /*
 ** Single pixel data.
 */
@@ -91,6 +106,13 @@ typedef struct			s_map
 	int					tmp_y2;
 	char 				*line;
 	char 				**name;
+	int r0;
+	int g0;
+	int b0;
+
+	int r1;
+	int g1;
+	int b1;
 }						t_map;
 
 /*
@@ -113,6 +135,7 @@ void					fdf_pixel_malloc(t_map *map, t_mlx *pixel);
 void					fdf_pixel_read(t_map *map, t_mlx *pixel);
 void					fdf_pixel_color_z(t_map *map, t_mlx *pixel);
 int						fdf_pixel_color(t_map *map);
+void					fdf_my_color(t_map	*map, t_mlx *data);
 int						ft_ishex(char c);
 int						ft_atoi_hex(char *s);
 /*

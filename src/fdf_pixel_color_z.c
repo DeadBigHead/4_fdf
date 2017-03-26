@@ -3,19 +3,32 @@
 void	set_z(t_map *map)
 {
 	char	*tmp;
+	int		nbr;
 
-	if (ft_isdigit(map->line[map->beg]) == 0)
+	if (ft_isdigit(map->line[map->beg]) == 0 && (map->line[map->beg] != '-' &&
+			  ft_isdigit(map->line[map->beg + 1]) != 1))
 	{
 		map->tmp_z[map->i] = 0;
 		map->i++;
 	}
-	else if (ft_isdigit(map->line[map->beg]) == 1)
+	else if (ft_isdigit(map->line[map->beg]) == 1 ||
+			(map->line[map->beg] == '-' &&
+					ft_isdigit(map->line[map->beg + 1]) == 1))
 	{
 		map->end = map->beg;
-		while (ft_isdigit(map->line[map->end]) == 1)
+		while (ft_isdigit(map->line[map->end]) == 1 ||
+			   (map->line[map->end] == '-' &&
+			   ft_isdigit(map->line[map->end + 1]) == 1))
 			map->end++;
 		tmp = ft_strsub(map->line, map->beg, (map->end - map->beg));
+		nbr = ft_atoi(tmp);
 		map->tmp_z[map->i] = ft_atoi(tmp);
+		if (nbr > MAXZ)
+			map->tmp_z[map->i] = MAXZ;
+		else if (nbr < MINZ)
+			map->tmp_z[map->i] = MINZ;
+		else
+			map->tmp_z[map->i] = nbr;
 		map->i++;
 		free(tmp);
 	}

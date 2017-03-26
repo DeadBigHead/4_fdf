@@ -55,7 +55,7 @@ void	present_color(t_map *map, int i)
 	d = FALSE;
 	while (ft_ishex(map->line[v]) == 1 ||
 			(map->line[v] == 'x' && (ft_ishex(map->line[v + 1]) == 1 &&
-									d == FALSE)))
+					d == FALSE)))
 	{
 		if (i % 2 == 0 && i <= 8 && i >= 2)
 		{

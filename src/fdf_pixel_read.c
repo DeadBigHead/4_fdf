@@ -35,8 +35,8 @@ void	fdf_pixel_write(t_map *map, t_mlx *pixel)
 		pixel_write_support(map, pixel);
 		while (map->r < map->map_x)
 		{
-			pixel->m_pixels[map->c][map->r]->x = map->r * 20;
-			pixel->m_pixels[map->c][map->r]->y = map->c * 20;
+			pixel->m_pixels[map->c][map->r]->x = map->r * 30;
+			pixel->m_pixels[map->c][map->r]->y = map->c * 30;
 			fdf_pixel_color_z(map, pixel);
 			pixel->m_pixels[map->c][map->r]->z = map->tmp_z[map->r];
 			set_color(map, pixel, i);

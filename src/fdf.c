@@ -21,7 +21,7 @@ int		main(int ac, char **av)
 		map.name = av;
 		fdf_validate(&map);
 		fdf_pixel_read(&map, &pixel);
-
+		fdf_my_color(&map, &pixel);
 
 		pixel.mlx_ptr = mlx_init();
 		pixel.mlx_img = mlx_new_image(pixel.mlx_ptr, 640, 480);
