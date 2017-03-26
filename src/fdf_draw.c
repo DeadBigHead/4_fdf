@@ -8,25 +8,24 @@ void	draw_pixel(t_map *map, t_mlx *data, int flag, float p)
 	{
 		i = (map->tmp_y1 * data->size_line +
 			 (map->tmp_x1 * (data->bits / 8)));
-		if (data->endian == 0)
+		int r = (map->r1 - map->r0) * p + map->r0;
+		int g = (map->g1 - map->g0) * p + map->g0;
+		int b = (map->b1 - map->b0) * p + map->b0;
+		if (data->endian == 1)
 		{
-			int r = (map->r1 - map->r0) * p + map->r0;
-			int g = (map->g1 - map->g0) * p + map->g0;
-			int b = (map->b1 - map->b0) * p + map->b0;
-
-			data->mlx_str[i] = r;
-			data->mlx_str[i + 1] = g;
-			data->mlx_str[i + 2] = b;
+			data->mlx_str[i] = data->m_pixels[map->c][map->r]->red;
+			data->mlx_str[i + 1] = data->m_pixels[map->c][map->r]->green;
+			data->mlx_str[i + 2] = data->m_pixels[map->c][map->r]->blue;
 			data->mlx_str[i + 3] = data->m_pixels[map->c][map->r]->alpha;
 		}
-//		else if (data->endian == 1)
-//		{
-//
+		else if (data->endian == 0)
+		{
+
 //			data->mlx_str[i] = data->m_pixels[map->c][map->r]->alpha;
-//			data->mlx_str[i + 1] = data->m_pixels[map->c][map->r]->blue;
-//			data->mlx_str[i + 2] = data->m_pixels[map->c][map->r]->green;
-//			data->mlx_str[i + 3] = data->m_pixels[map->c][map->r]->red;
-//		}
+			data->mlx_str[i + 0] = b;
+			data->mlx_str[i + 1] = g;
+			data->mlx_str[i + 2] = r;
+		}
 //	}
 //	else if (flag == 0)
 //	{

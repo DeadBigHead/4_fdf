@@ -43,6 +43,9 @@ void	fdf_my_color(t_map	*map, t_mlx *data)
 	int r1;
 	int g1;
 	int b1;
+	int r2;
+	int g2;
+	int b2;
 
 	r0 = RED0;
 	g0 = GREEN0;
@@ -50,6 +53,9 @@ void	fdf_my_color(t_map	*map, t_mlx *data)
 	r1 = RED1;
 	g1 = GREEN1;
 	b1 = BLUE1;
+	r2 = RED2;
+	g2 = GREEN2;
+	b2 = BLUE2;
 	min_max = find_min_max(map, data);
 	int j = min_max[0];
 	int k = min_max[1];
@@ -64,10 +70,24 @@ void	fdf_my_color(t_map	*map, t_mlx *data)
 					&& data->m_pixels[map->c][map->r]->green == 0
 					   && data->m_pixels[map->c][map->r]->blue == 0)
 			{
-				float p = (i - data->m_pixels[map->c][map->r]->z) / i;
-				int r = (r0 - r1) * p + r1;
-				int g = (g0 - g1) * p + g1;
-				int b = (b0 - b1) * p + b1;
+				float p;
+				int r;
+				int b;
+				int g;
+				if (data->m_pixels[map->c][map->r]->z < 0)
+				{
+					p = ((-j) - (-data->m_pixels[map->c][map->r]->z)) / (-j);
+					r = (r0 - r2) * p + r2;
+					g = (g0 - g2) * p + g2;
+					b = (b0 - b2) * p + b2;
+				}
+				else
+				{
+					p = (k - data->m_pixels[map->c][map->r]->z) / k;
+					r = (r0 - r1) * p + r1;
+					g = (g0 - g1) * p + g1;
+					b = (b0 - b1) * p + b1;
+				}
 				data->m_pixels[map->c][map->r]->red = r;
 				data->m_pixels[map->c][map->r]->green = g;
 				data->m_pixels[map->c][map->r]->blue = b;
@@ -75,5 +95,24 @@ void	fdf_my_color(t_map	*map, t_mlx *data)
 			map->r++;
 		}
 		map->c++;
+	}
+
+	int i4, j4;
+	i4 = 0;
+	while (i4 < map->map_y)
+	{
+		j4 = 0;
+		while (j4 < map->map_x)
+		{
+//			printf("%.0f ", pixel->m_pixels[i][j]->x);
+//			printf("%.0f |", pixel->m_pixels[i][j]->y);
+			printf("|%d,", data->m_pixels[i4][j4]->red);
+			printf("%d,", data->m_pixels[i4][j4]->green);
+			printf("%d,", data->m_pixels[i4][j4]->blue);
+			printf("%d| ", data->m_pixels[i4][j4]->alpha);
+			j4++;
+		}
+		printf("\n");
+		i4++;
 	}
 }

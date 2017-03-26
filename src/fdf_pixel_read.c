@@ -60,24 +60,24 @@ void	fdf_pixel_read(t_map *map, t_mlx *pixel)
 		fdf_error(LINE);
 
 
-	int i, j;
-	i = 0;
-	while (i < map->map_y)
-	{
-		j = 0;
-		while (j < map->map_x)
-		{
-			printf("%.0f ", pixel->m_pixels[i][j]->x);
-			printf("%.0f |", pixel->m_pixels[i][j]->y);
+//	int i, j;
+//	i = 0;
+//	while (i < map->map_y)
+//	{
+//		j = 0;
+//		while (j < map->map_x)
+//		{
+////			printf("%.0f ", pixel->m_pixels[i][j]->x);
+////			printf("%.0f |", pixel->m_pixels[i][j]->y);
 //			printf("|%d,", pixel->m_pixels[i][j]->red);
 //			printf("%d,", pixel->m_pixels[i][j]->green);
 //			printf("%d,", pixel->m_pixels[i][j]->blue);
 //			printf("%d| ", pixel->m_pixels[i][j]->alpha);
-			j++;
-		}
-		printf("\n");
-		i++;
-	}
+//			j++;
+//		}
+//		printf("\n");
+//		i++;
+//	}
 //	printf("%d\n", map->tmp_color[0]);
 //	printf("%d\n", map->tmp_color[1]);
 //	printf("%d\n", map->tmp_color[2]);

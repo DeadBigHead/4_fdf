@@ -41,17 +41,30 @@ typedef unsigned char	t_ch;
 # define MINZ -100
 # define MAXZ 10
 
-# define RED0 0
-# define GREEN0 220
-# define BLUE0 0
-
-# define RED1 220
-# define GREEN1 0
-# define BLUE1 0
-
-# define RED2 0
-# define GREEN2 0
-# define BLUE2 220
+/*
+** http://www.cssmatic.com/gradient-generator#'\-moz\-linear\-gradient\%28left\%2C\%20rgba\%28238\%2C209\%2C17\%2C1\%29\%200\%25\%2C\%20rgba\%28238\%2C28\%2C17\%2C1\%29\%2051\%25\%2C\%20rgba\%2881\%2C39\%2C206\%2C1\%29\%20100\%25\%29\%3B'
+** rgb(255,208,0) yellow - negative
+** rgb(238,28,17) red - zeroes
+** rgb(81,39,206) blue - top
+*/
+/*
+** zeroes
+*/
+# define RED0 232
+# define GREEN0 153
+# define BLUE0 25
+/*
+** positive
+*/
+# define RED1 238
+# define GREEN1 28
+# define BLUE1 17
+/*
+** negative
+*/
+# define RED2 81
+# define GREEN2 39
+# define BLUE2 206
 
 /*
 ** Single pixel data.
