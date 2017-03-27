@@ -40,9 +40,12 @@ int		main(int ac, char **av)
 //			pixel.mlx_str[i + 3] = 0;
 //			i += pixel.bits/8;
 //		}
+		pixel.x = 50;
+		pixel.y = 50;
 		pixel.mlx_win = mlx_new_window(pixel.mlx_ptr, 640, 480, "He");
-		mlx_put_image_to_window(pixel.mlx_ptr, pixel.mlx_win, pixel.mlx_img, 50, 50);
+		mlx_put_image_to_window(pixel.mlx_ptr, pixel.mlx_win, pixel.mlx_img, pixel.x, pixel.y);
 
+		mlx_hook (pixel.mlx_win, 2, 5, &fdf_key_core, &pixel);
 		mlx_loop(pixel.mlx_ptr);
 
 //		printf("map_x - %zu\n", map.map_x);

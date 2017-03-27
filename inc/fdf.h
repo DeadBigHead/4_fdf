@@ -66,6 +66,16 @@ typedef unsigned char	t_ch;
 # define GREEN2 39
 # define BLUE2 206
 
+# define ESC 53
+# define UP 126
+# define DOWN 125
+# define LEFT 123
+# define RIGHT 124
+# define MINUS 27
+# define PLUS 24
+//# define
+//# define
+
 /*
 ** Single pixel data.
 */
@@ -93,6 +103,8 @@ typedef struct			s_mlx
 	int					bits;
 	int					size_line;
 	int 				endian;
+	int 				x;
+	int 				y;
 }						t_mlx;
 
 /*
@@ -155,4 +167,6 @@ int						ft_atoi_hex(char *s);
 ** Draw.
 */
 void					fdf_draw(t_map *map, t_mlx *pixel);
+
+int						fdf_key_core(int keycode, t_mlx *data, t_map *map);
 #endif
