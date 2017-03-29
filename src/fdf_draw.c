@@ -1,22 +1,22 @@
 #include "fdf.h"
 
-void	draw_pixel(t_map *map, t_mlx *data, int flag, float p)
+void	draw_pixel(t_mlx *data, int flag, float p)
 {
 	size_t i;
 
-	if (flag == 1)
+	i = (data->tmp_y1 * data->size_line +
+		 (data->tmp_x1 * (data->bits / 8)));
+	if (flag == 1 && i < data->total_size)
 	{
-		i = (map->tmp_y1 * data->size_line +
-			 (map->tmp_x1 * (data->bits / 8)));
-		int r = (map->r1 - map->r0) * p + map->r0;
-		int g = (map->g1 - map->g0) * p + map->g0;
-		int b = (map->b1 - map->b0) * p + map->b0;
+		int r = (data->r1 - data->r0) * p + data->r0;
+		int g = (data->g1 - data->g0) * p + data->g0;
+		int b = (data->b1 - data->b0) * p + data->b0;
 		if (data->endian == 1)
 		{
-			data->mlx_str[i] = data->m_pixels[map->c][map->r]->red;
-			data->mlx_str[i + 1] = data->m_pixels[map->c][map->r]->green;
-			data->mlx_str[i + 2] = data->m_pixels[map->c][map->r]->blue;
-			data->mlx_str[i + 3] = data->m_pixels[map->c][map->r]->alpha;
+			data->mlx_str[i] = data->m_pixels[data->c][data->r]->red;
+			data->mlx_str[i + 1] = data->m_pixels[data->c][data->r]->green;
+			data->mlx_str[i + 2] = data->m_pixels[data->c][data->r]->blue;
+			data->mlx_str[i + 3] = data->m_pixels[data->c][data->r]->alpha;
 		}
 		else if (data->endian == 0)
 		{
@@ -46,9 +46,10 @@ void	draw_pixel(t_map *map, t_mlx *data, int flag, float p)
 //			data->mlx_str[i + 3] = data->m_pixels[map->c][map->r]->red;
 //		}
 	}
+	return;
 }
 
-void	draw_line(t_map *map, t_mlx *pixel)
+void	draw_line(t_mlx *pixel)
 {
 	int        delta_x;
 	int        delta_y;
@@ -60,27 +61,27 @@ void	draw_line(t_map *map, t_mlx *pixel)
 	float i2;
 	float i3;
 
-	delta_x = abs(map->tmp_x2 - map->tmp_x1);
-	delta_y = abs(map->tmp_y2 - map->tmp_y1);
-	sign_x = map->tmp_x1 < map->tmp_x2 ? 1 : -1;
-	sign_y = map->tmp_y1 < map->tmp_y2 ? 1 : -1;
+	delta_x = abs(pixel->tmp_x2 - pixel->tmp_x1);
+	delta_y = abs(pixel->tmp_y2 - pixel->tmp_y1);
+	sign_x = pixel->tmp_x1 < pixel->tmp_x2 ? 1 : -1;
+	sign_y = pixel->tmp_y1 < pixel->tmp_y2 ? 1 : -1;
 	error = delta_x - delta_y;
-	i = sqrtf((map->tmp_x2 - map->tmp_x1) * (map->tmp_x2 - map->tmp_x1)
-			  + (map->tmp_y2 - map->tmp_y1) * (map->tmp_y2 - map->tmp_y1));
+	i = sqrtf((pixel->tmp_x2 - pixel->tmp_x1) * (pixel->tmp_x2 - pixel->tmp_x1)
+			  + (pixel->tmp_y2 - pixel->tmp_y1) * (pixel->tmp_y2 - pixel->tmp_y1));
 //	draw_pixel(map, pixel, 0);
-	while (map->tmp_x1 != map->tmp_x2 || map->tmp_y1 != map->tmp_y2)
+	while (pixel->tmp_x1 != pixel->tmp_x2 || pixel->tmp_y1 != pixel->tmp_y2)
 	{
-		i2 = sqrtf((map->tmp_x2 - map->tmp_x1) * (map->tmp_x2 - map->tmp_x1)
-				   + (map->tmp_y2 - map->tmp_y1) * (map->tmp_y2 - map->tmp_y1));
+		i2 = sqrtf((pixel->tmp_x2 - pixel->tmp_x1) * (pixel->tmp_x2 - pixel->tmp_x1)
+				   + (pixel->tmp_y2 - pixel->tmp_y1) * (pixel->tmp_y2 - pixel->tmp_y1));
 		i3 = (i - i2) / i;
-		draw_pixel(map, pixel, 1, i3);
+		draw_pixel(pixel, 1, i3);
 		error2 = error * 2;
 		(error2 > -delta_y) ? (error -= delta_y) : 0;
-		(error2 > -delta_y) ? (map->tmp_x1 += sign_x) : 0;
+		(error2 > -delta_y) ? (pixel->tmp_x1 += sign_x) : 0;
 		if (error2 < delta_x)
 		{
 			error += delta_x;
-			map->tmp_y1 += sign_y;
+			pixel->tmp_y1 += sign_y;
 		}
 	}
 //	int dx;
@@ -115,58 +116,58 @@ void	draw_line(t_map *map, t_mlx *pixel)
 //	}
 }
 
-void	dup_coords(t_map *map, t_mlx *pixel, int flag)
+void	dup_coords(t_mlx *pixel, int flag)
 {
-	map->tmp_x1 = pixel->m_pixels[map->c][map->r]->x;
-	map->tmp_y1 = pixel->m_pixels[map->c][map->r]->y;
+	pixel->tmp_x1 = pixel->m_pixels[pixel->c][pixel->r]->x;
+	pixel->tmp_y1 = pixel->m_pixels[pixel->c][pixel->r]->y;
 
-	map->r0 = pixel->m_pixels[map->c][map->r]->red;
-	map->g0 = pixel->m_pixels[map->c][map->r]->green;
-	map->b0 = pixel->m_pixels[map->c][map->r]->blue;
+	pixel->r0 = pixel->m_pixels[pixel->c][pixel->r]->red;
+	pixel->g0 = pixel->m_pixels[pixel->c][pixel->r]->green;
+	pixel->b0 = pixel->m_pixels[pixel->c][pixel->r]->blue;
 	if (flag == 1)
 	{
-		map->tmp_x2 = pixel->m_pixels[map->c][map->r + 1]->x;
-		map->tmp_y2 = pixel->m_pixels[map->c][map->r + 1]->y;
+		pixel->tmp_x2 = pixel->m_pixels[pixel->c][pixel->r + 1]->x;
+		pixel->tmp_y2 = pixel->m_pixels[pixel->c][pixel->r + 1]->y;
 
-		map->r1 = pixel->m_pixels[map->c][map->r + 1]->red;
-		map->g1 = pixel->m_pixels[map->c][map->r + 1]->green;
-		map->b1 = pixel->m_pixels[map->c][map->r + 1]->blue;
+		pixel->r1 = pixel->m_pixels[pixel->c][pixel->r + 1]->red;
+		pixel->g1 = pixel->m_pixels[pixel->c][pixel->r + 1]->green;
+		pixel->b1 = pixel->m_pixels[pixel->c][pixel->r + 1]->blue;
 	}
 	else if (flag == 2)
 	{
-		map->tmp_x2 = pixel->m_pixels[map->c + 1][map->r]->x;
-		map->tmp_y2 = pixel->m_pixels[map->c + 1][map->r]->y;
+		pixel->tmp_x2 = pixel->m_pixels[pixel->c + 1][pixel->r]->x;
+		pixel->tmp_y2 = pixel->m_pixels[pixel->c + 1][pixel->r]->y;
 
-		map->r1 = pixel->m_pixels[map->c + 1][map->r]->red;
-		map->g1 = pixel->m_pixels[map->c + 1][map->r]->green;
-		map->b1 = pixel->m_pixels[map->c + 1][map->r]->blue;
+		pixel->r1 = pixel->m_pixels[pixel->c + 1][pixel->r]->red;
+		pixel->g1 = pixel->m_pixels[pixel->c + 1][pixel->r]->green;
+		pixel->b1 = pixel->m_pixels[pixel->c + 1][pixel->r]->blue;
 	}
 }
 
-void	fdf_draw(t_map *map, t_mlx *pixel)
+void	fdf_draw(t_mlx *pixel)
 {
 	int flag;
 
-	map->c = 0;
-	while (map->c < map->map_y)
+	pixel->c = 0;
+	while (pixel->c < pixel->map_y)
 	{
-		map->r = 0;
-		while (map->r < map->map_x)
+		pixel->r = 0;
+		while (pixel->r < pixel->map_x)
 		{
-			if (map->r + 1 < map->map_x)
+			if (pixel->r + 1 < pixel->map_x)
 			{
 				flag = 1;
-				dup_coords(map, pixel, flag);
-				draw_line(map, pixel);
+				dup_coords(pixel, flag);
+				draw_line(pixel);
 			}
-			if (map->c + 1 < map->map_y)
+			if (pixel->c + 1 < pixel->map_y)
 			{
 				flag = 2;
-				dup_coords(map, pixel, flag);
-				draw_line(map, pixel);
+				dup_coords(pixel, flag);
+				draw_line(pixel);
 			}
-			map->r++;
+			pixel->r++;
 		}
-		map->c++;
+		pixel->c++;
 	}
 }

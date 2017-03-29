@@ -24,12 +24,17 @@ int		main(int ac, char **av)
 		fdf_my_color(&map, &pixel);
 
 		pixel.mlx_ptr = mlx_init();
-		pixel.mlx_img = mlx_new_image(pixel.mlx_ptr, 640, 480);
+		pixel.mlx_img = mlx_new_image(pixel.mlx_ptr, 900, 900);
 		pixel.mlx_str = mlx_get_data_addr(pixel.mlx_img, &(pixel.bits), &(pixel.size_line), &(pixel.endian));
 //
 ////		mlx_stuff(&data);
 //
-		fdf_draw(&map, &pixel);
+		pixel.map_x = map.map_x;
+		pixel.map_y = map.map_y;
+		pixel.total_size = 900 * 900 * 4;
+//		pixel.total_size = pixel.size_line * pixel.map_x *
+//				pixel.map_y * (pixel.bits);
+		fdf_draw(&pixel);
 
 //		int i = 0;
 //		while (i < 300 || pixel.mlx_str[i] != '\0')
@@ -42,7 +47,7 @@ int		main(int ac, char **av)
 //		}
 		pixel.x = 50;
 		pixel.y = 50;
-		pixel.mlx_win = mlx_new_window(pixel.mlx_ptr, 640, 480, "He");
+		pixel.mlx_win = mlx_new_window(pixel.mlx_ptr, 900, 900, "He");
 		mlx_put_image_to_window(pixel.mlx_ptr, pixel.mlx_win, pixel.mlx_img, pixel.x, pixel.y);
 
 		mlx_hook (pixel.mlx_win, 2, 5, &fdf_key_core, &pixel);

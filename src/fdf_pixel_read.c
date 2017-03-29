@@ -31,7 +31,6 @@ void	fdf_pixel_write(t_map *map, t_mlx *pixel)
 	{
 		i = 0;
 		map->r = 0;
-//		pixel->m_pixels[map->c][map->r]->y = map->c;
 		pixel_write_support(map, pixel);
 		while (map->r < map->map_x)
 		{

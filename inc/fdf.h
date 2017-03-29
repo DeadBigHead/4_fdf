@@ -100,11 +100,26 @@ typedef struct			s_mlx
 	void				*mlx_win;
 	void				*mlx_img;
 	char				*mlx_str;
+	int 				x;
+	int 				y;
 	int					bits;
 	int					size_line;
 	int 				endian;
-	int 				x;
-	int 				y;
+	size_t				map_x;
+	size_t				map_y;
+	int					tmp_x1;
+	int					tmp_y1;
+	int					tmp_x2;
+	int					tmp_y2;
+	int					r0;
+	int					g0;
+	int					b0;
+	int					r1;
+	int					g1;
+	int					b1;
+	int 				c;
+	int 				r;
+	size_t 				total_size;
 }						t_mlx;
 
 /*
@@ -125,19 +140,8 @@ typedef struct			s_map
 	size_t				tmp;
 	size_t				map_x;
 	size_t				map_y;
-	int					tmp_x1;
-	int					tmp_y1;
-	int					tmp_x2;
-	int					tmp_y2;
 	char 				*line;
 	char 				**name;
-	int r0;
-	int g0;
-	int b0;
-
-	int r1;
-	int g1;
-	int b1;
 }						t_map;
 
 /*
@@ -166,7 +170,6 @@ int						ft_atoi_hex(char *s);
 /*
 ** Draw.
 */
-void					fdf_draw(t_map *map, t_mlx *pixel);
-
-int						fdf_key_core(int keycode, t_mlx *data, t_map *map);
+void					fdf_draw(t_mlx *pixel);
+int						fdf_key_core(int keycode, t_mlx *data);
 #endif
