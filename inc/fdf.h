@@ -39,7 +39,9 @@ typedef unsigned char	t_ch;
 # define FALSE -1
 
 # define MINZ -100
-# define MAXZ 10
+# define MAXZ 100
+# define HEIGHT 900
+# define WIDTH 900
 
 /*
 ** http://www.cssmatic.com/gradient-generator#'\-moz\-linear\-gradient\%28left\%2C\%20rgba\%28238\%2C209\%2C17\%2C1\%29\%200\%25\%2C\%20rgba\%28238\%2C28\%2C17\%2C1\%29\%2051\%25\%2C\%20rgba\%2881\%2C39\%2C206\%2C1\%29\%20100\%25\%29\%3B'
@@ -73,6 +75,12 @@ typedef unsigned char	t_ch;
 # define RIGHT 124
 # define MINUS 27
 # define PLUS 24
+# define QKEY 12
+# define WKEY 13
+# define AKEY 0
+# define SKEY 1
+# define ZKEY 6
+# define XKEY 7
 //# define
 //# define
 
@@ -120,6 +128,12 @@ typedef struct			s_mlx
 	int 				c;
 	int 				r;
 	size_t 				total_size;
+	int 				xcen;
+	int 				ycen;
+	int 				wcenx;
+	int 				wceny;
+	int 				width;
+	int 				height;
 }						t_mlx;
 
 /*
@@ -172,4 +186,6 @@ int						ft_atoi_hex(char *s);
 */
 void					fdf_draw(t_mlx *pixel);
 int						fdf_key_core(int keycode, t_mlx *data);
+void					fdf_center_find(t_mlx *data);
+void					fdf_center_place(t_mlx *data);
 #endif
