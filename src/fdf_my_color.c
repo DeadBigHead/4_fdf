@@ -96,23 +96,4 @@ void	fdf_my_color(t_map	*map, t_mlx *data)
 		}
 		map->c++;
 	}
-
-	int i4, j4;
-	i4 = 0;
-	while (i4 < map->map_y)
-	{
-		j4 = 0;
-		while (j4 < map->map_x)
-		{
-//			printf("%.0f ", pixel->m_pixels[i][j]->x);
-//			printf("%.0f |", pixel->m_pixels[i][j]->y);
-			printf("|%d,", data->m_pixels[i4][j4]->red);
-			printf("%d,", data->m_pixels[i4][j4]->green);
-			printf("%d,", data->m_pixels[i4][j4]->blue);
-			printf("%d| ", data->m_pixels[i4][j4]->alpha);
-			j4++;
-		}
-		printf("\n");
-		i4++;
-	}
 }

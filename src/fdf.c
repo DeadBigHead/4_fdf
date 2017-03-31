@@ -27,6 +27,8 @@ int		main(int ac, char **av)
 		pixel.height = HEIGHT;
 		pixel.wcenx = WIDTH / 2;
 		pixel.wceny = HEIGHT / 2;
+		pixel.wxcur = pixel.wcenx;
+		pixel.wycur = pixel.wceny;
 		pixel.mlx_ptr = mlx_init();
 		pixel.mlx_img = mlx_new_image(pixel.mlx_ptr, WIDTH, HEIGHT);
 		pixel.mlx_str = mlx_get_data_addr(pixel.mlx_img, &(pixel.bits), &(pixel.size_line), &(pixel.endian));
@@ -40,6 +42,7 @@ int		main(int ac, char **av)
 //				pixel.map_y * (pixel.bits);
 		fdf_center_find(&pixel);
 		fdf_center_place(&pixel);
+		pixel.zoom = 0;
 		fdf_draw(&pixel);
 
 //		int i = 0;

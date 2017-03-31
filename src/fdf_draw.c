@@ -4,9 +4,13 @@ void	draw_pixel(t_mlx *data, int flag, float p)
 {
 	size_t i;
 
+//	if (data->tmp_x1 < 0 || data->tmp_x1 > WIDTH ||
+//		data->tmp_y1 < 0 || data->tmp_y1 > HEIGHT)
+//		data->step++;
 	i = (data->tmp_y1 * data->size_line +
 		 (data->tmp_x1 * (data->bits / 8)));
-	if (flag == 1 && i < data->total_size)
+	if (flag == 1 && i < data->total_size &&
+			data->tmp_x1 > 0 && data->tmp_x1 < WIDTH)
 	{
 		int r = (data->r1 - data->r0) * p + data->r0;
 		int g = (data->g1 - data->g0) * p + data->g0;
@@ -78,6 +82,9 @@ void	draw_line(t_mlx *pixel)
 		error2 = error * 2;
 		(error2 > -delta_y) ? (error -= delta_y) : 0;
 		(error2 > -delta_y) ? (pixel->tmp_x1 += sign_x) : 0;
+		if ((pixel->tmp_x1 < -300 || pixel->tmp_x1 > WIDTH + 300 ||
+				pixel->tmp_y1 < -300 || pixel->tmp_y1 > HEIGHT + 300))
+			return;
 		if (error2 < delta_x)
 		{
 			error += delta_x;

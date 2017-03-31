@@ -13,7 +13,6 @@
 #ifndef FDF_FDF_H
 # define FDF_FDF_H
 
-# include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
@@ -41,7 +40,7 @@ typedef unsigned char	t_ch;
 # define MINZ -100
 # define MAXZ 100
 # define HEIGHT 900
-# define WIDTH 900
+# define WIDTH 1500
 
 /*
 ** http://www.cssmatic.com/gradient-generator#'\-moz\-linear\-gradient\%28left\%2C\%20rgba\%28238\%2C209\%2C17\%2C1\%29\%200\%25\%2C\%20rgba\%28238\%2C28\%2C17\%2C1\%29\%2051\%25\%2C\%20rgba\%2881\%2C39\%2C206\%2C1\%29\%20100\%25\%29\%3B'
@@ -81,6 +80,12 @@ typedef unsigned char	t_ch;
 # define SKEY 1
 # define ZKEY 6
 # define XKEY 7
+
+# define PI 3.14159265358979323846
+# define DTR(angleDegrees) (angleDegrees * PI / 180.0)
+# define DEGREE 3.1
+
+
 //# define
 //# define
 
@@ -134,6 +139,9 @@ typedef struct			s_mlx
 	int 				wceny;
 	int 				width;
 	int 				height;
+	int 				wxcur;
+	int 				wycur;
+	int					zoom;
 }						t_mlx;
 
 /*
@@ -188,4 +196,6 @@ void					fdf_draw(t_mlx *pixel);
 int						fdf_key_core(int keycode, t_mlx *data);
 void					fdf_center_find(t_mlx *data);
 void					fdf_center_place(t_mlx *data);
+void					fdf_center_current(t_mlx *data);
+void					fdf_center_zero(t_mlx *data);
 #endif
