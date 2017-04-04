@@ -1,40 +1,23 @@
 #include "fdf.h"
 
-void	zero_color(t_map *map, int i)
+static	void	color_support(t_map *map, int n, int k)
+{
+	while (n <= k)
+	{
+		map->tmp_color[map->j] = 0;
+		map->j++;
+		n++;
+	}
+}
+
+static	void	zero_color(t_map *map, int i)
 {
 	if (i / 2 == 0)
-	{
-		i = 0;
-		while (i <= 3)
-		{
-			map->tmp_color[map->j] = 0;
-			map->j++;
-			i++;
-		}
-		return;
-	}
+		color_support(map, 0, 3);
 	else if (i / 2 == 1)
-	{
-		i = 0;
-		while (i <= 2)
-		{
-			map->tmp_color[map->j] = 0;
-			map->j++;
-			i++;
-		}
-		return;
-	}
+		color_support(map, 0, 2);
 	else if (i / 2 == 2)
-	{
-		i = 0;
-		while (i <= 1)
-		{
-			map->tmp_color[map->j] = 0;
-			map->j++;
-			i++;
-		}
-		return;
-	}
+		color_support(map, 0, 1);
 	else if (i / 2 == 3)
 	{
 		map->tmp_color[map->j] = 0;
@@ -43,7 +26,7 @@ void	zero_color(t_map *map, int i)
 	}
 }
 
-void	present_color(t_map *map, int i)
+static	void	present_color(t_map *map, int i)
 {
 	char	*tmp;
 	int		v;

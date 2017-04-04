@@ -41,7 +41,6 @@ typedef unsigned char	t_ch;
 # define MAXZ 100
 # define HEIGHT 900
 # define WIDTH 1500
-
 /*
 ** http://www.cssmatic.com/gradient-generator#'\-moz\-linear\-gradient\%28left\%2C\%20rgba\%28238\%2C209\%2C17\%2C1\%29\%200\%25\%2C\%20rgba\%28238\%2C28\%2C17\%2C1\%29\%2051\%25\%2C\%20rgba\%2881\%2C39\%2C206\%2C1\%29\%20100\%25\%29\%3B'
 ** rgb(255,208,0) yellow - negative
@@ -104,20 +103,24 @@ typedef struct			s_pixel
 }						t_pixel;
 
 /*
-** Minilibx struct.
+** ***m_pixels - holds map coordinates and color
+** *ptr - mlx_init(); *win - mlx_new_window();
+** *img - mlx_new_image(); *str - mlx_get_data_addr();
+** bit - number of bits per pixel; line_sz - size of one line in bits;
+** end - endian;
 */
 typedef struct			s_mlx
 {
 	struct s_pixel		***m_pixels;
-	void				*mlx_ptr;
-	void				*mlx_win;
-	void				*mlx_img;
-	char				*mlx_str;
-	int 				x;
-	int 				y;
-	int					bits;
-	int					size_line;
-	int 				endian;
+	void				*ptr;
+	void				*win;
+	void				*img;
+	char				*str;
+	int					bit;
+	int					line_sz;
+	int 				end;
+	int 				imgx;
+	int 				imgy;
 	size_t				map_x;
 	size_t				map_y;
 	int					tmp_x1;
@@ -184,11 +187,18 @@ void					fdf_validate(t_map *map);
 */
 void					fdf_pixel_malloc(t_map *map, t_mlx *pixel);
 void					fdf_pixel_read(t_map *map, t_mlx *pixel);
-void					fdf_pixel_color_z(t_map *map, t_mlx *pixel);
+void					fdf_pixel_color_z(t_map *map);
 int						fdf_pixel_color(t_map *map);
 void					fdf_my_color(t_map	*map, t_mlx *data);
 int						ft_ishex(char c);
 int						ft_atoi_hex(char *s);
+/*
+** Window
+*/
+void					fdf_win_setup(t_mlx *mlx);
+
+void					fdf_mlx_init(t_mlx	*mlx);
+void					fdf_first_draw(t_mlx *mlx, t_map *map);
 /*
 ** Draw.
 */

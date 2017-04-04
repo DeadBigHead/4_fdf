@@ -8,7 +8,7 @@ void	draw_pixel(t_mlx *data, int flag, float p)
 //		data->tmp_y1 < 0 || data->tmp_y1 > HEIGHT)
 //		data->step++;
 	i = (data->tmp_y1 * data->size_line +
-		 (data->tmp_x1 * (data->bits / 8)));
+		 (data->tmp_x1 * (data->bit / 8)));
 	if (flag == 1 && i < data->total_size &&
 			data->tmp_x1 > 0 && data->tmp_x1 < WIDTH)
 	{

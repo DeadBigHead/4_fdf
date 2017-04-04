@@ -1,16 +1,19 @@
 #include "fdf.h"
 
-void	set_z(t_map *map)
+static	void	set_z_support(t_map *map)
+{
+	map->tmp_z[map->i] = 0;
+	map->i++;
+}
+
+static	void	set_z(t_map *map)
 {
 	char	*tmp;
 	int		nbr;
 
 	if (ft_isdigit(map->line[map->beg]) == 0 && (map->line[map->beg] != '-' &&
 			  ft_isdigit(map->line[map->beg + 1]) != 1))
-	{
-		map->tmp_z[map->i] = 0;
-		map->i++;
-	}
+		set_z_support(map);
 	else if (ft_isdigit(map->line[map->beg]) == 1 ||
 			(map->line[map->beg] == '-' &&
 					ft_isdigit(map->line[map->beg + 1]) == 1))
@@ -23,18 +26,20 @@ void	set_z(t_map *map)
 		tmp = ft_strsub(map->line, map->beg, (map->end - map->beg));
 		nbr = ft_atoi(tmp);
 		map->tmp_z[map->i] = ft_atoi(tmp);
-		if (nbr > MAXZ)
-			map->tmp_z[map->i] = MAXZ;
-		else if (nbr < MINZ)
-			map->tmp_z[map->i] = MINZ;
-		else
-			map->tmp_z[map->i] = nbr;
+//		if (nbr > MAXZ)
+//			map->tmp_z[map->i] = MAXZ;
+//		else if (nbr < MINZ)
+//			map->tmp_z[map->i] = MINZ;
+//		else
+//			map->tmp_z[map->i] = nbr;
+		(nbr > MAXZ) ? map->tmp_z[map->i] = MAXZ : map->tmp_z[map->i] = nbr;
+		(nbr < MINZ) ? map->tmp_z[map->i] = MINZ : map->tmp_z[map->i] = nbr;
 		map->i++;
 		free(tmp);
 	}
 }
 
-void	fdf_pixel_color_z(t_map *map, t_mlx *pixel)
+void			fdf_pixel_color_z(t_map *map)
 {
 	map->tmp = 0;
 	map->beg = map->end;
@@ -53,5 +58,5 @@ void	fdf_pixel_color_z(t_map *map, t_mlx *pixel)
 	if (map->tmp == 0)
 		fdf_pixel_color(map);
 	map->ctrl++;
-	fdf_pixel_color_z(map, pixel);
+	fdf_pixel_color_z(map);
 }

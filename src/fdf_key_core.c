@@ -97,7 +97,7 @@ void	fdf_zoom(int kcode, t_mlx *data)
 	{
 		c = 0;
 		r = 0;
-		if ((data->xcen - data->m_pixels[c][r]->x) < data->width * 10)
+		if ((data->xcen - data->m_pixels[c][r]->x) < data->width * 20)
 		{
 			tmpx = data->wxcur;
 			tmpy = data->wycur;
@@ -130,8 +130,9 @@ void	fdf_zoom(int kcode, t_mlx *data)
 	{
 		c = 0;
 		r = 0;
-		if (data->m_pixels[c][r]->x < (data->xcen - 10)
-				|| data->m_pixels[c][r]->y < (data->ycen - 10))
+		if ((data->xcen - data->m_pixels[c][r]->x) > data->width * 0.01)
+//		if (data->m_pixels[c][r]->x < (data->xcen - 10)
+//				|| data->m_pixels[c][r]->y < (data->ycen - 10))
 		{
 			tmpx = data->wxcur;
 			tmpy = data->wycur;
@@ -166,6 +167,7 @@ void	fdf_rotate(int kcode, t_mlx *data)
 {
 	float tmpy;
 	float tmpz;
+	float tmpx;
 	double r_plus = DTR(DEGREE);
 	double r_minus = -DTR(DEGREE);
 
@@ -221,6 +223,58 @@ void	fdf_rotate(int kcode, t_mlx *data)
 		mlx_put_image_to_window(data->mlx_ptr, data->mlx_win,
 								data->mlx_img, data->x, data->y);
 	}
+	if (kcode == AKEY)
+	{
+		data->c = 0;
+		while (data->c < data->map_y)
+		{
+			data->r = 0;
+			while (data->r < data->map_x)
+			{
+				tmpx = data->m_pixels[data->c][data->r]->x;
+				tmpz = data->m_pixels[data->c][data->r]->z;
+				data->m_pixels[data->c][data->r]->x =
+						tmpx * cos(r_plus) + tmpz * sin(r_plus);
+				data->m_pixels[data->c][data->r]->z =
+						tmpz * cos(r_plus) - tmpx * sin(r_plus);
+				data->r++;
+			}
+			data->c++;
+		}
+		fdf_center_find(data);
+		fdf_center_current(data);
+		mlx_clear_window(data->mlx_ptr, data->mlx_win);
+		ft_bzero(data->mlx_str, data->total_size);
+		fdf_draw(data);
+		mlx_put_image_to_window(data->mlx_ptr, data->mlx_win,
+								data->mlx_img, data->x, data->y);
+	}
+	if (kcode == SKEY)
+	{
+		data->c = 0;
+		while (data->c < data->map_y)
+		{
+			data->r = 0;
+			while (data->r < data->map_x)
+			{
+				tmpx = data->m_pixels[data->c][data->r]->x;
+				tmpz = data->m_pixels[data->c][data->r]->z;
+				data->m_pixels[data->c][data->r]->x =
+						tmpx * cos(r_minus) + tmpz * sin(r_minus);
+				data->m_pixels[data->c][data->r]->z =
+						tmpz * cos(r_minus) - tmpx * sin(r_minus);
+				data->r++;
+			}
+			data->c++;
+		}
+		fdf_center_find(data);
+		fdf_center_current(data);
+		mlx_clear_window(data->mlx_ptr, data->mlx_win);
+		ft_bzero(data->mlx_str, data->total_size);
+		fdf_draw(data);
+		mlx_put_image_to_window(data->mlx_ptr, data->mlx_win,
+								data->mlx_img, data->x, data->y);
+	}
 }
 int		fdf_key_core(int kcode, t_mlx *data)
 {
@@ -230,7 +284,9 @@ int		fdf_key_core(int kcode, t_mlx *data)
 		fdf_move(kcode, data);
 	if (kcode == PLUS || kcode == MINUS)
 		fdf_zoom(kcode, data);
-	if (kcode == QKEY || kcode == WKEY)
+	if (kcode == QKEY || kcode == WKEY
+			|| kcode == AKEY || kcode == SKEY
+			|| kcode == ZKEY || kcode == XKEY)
 		fdf_rotate(kcode, data);
 	return (0);
 }
