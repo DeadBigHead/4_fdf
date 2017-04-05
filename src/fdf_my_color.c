@@ -29,8 +29,10 @@ static int		*find_min_max(t_map	*map, t_mlx *mlx)
 	return (min_max);
 }
 
-static int	*fdf_assign_color(int *rgb)
+static int	*fdf_assign_color()
 {
+	int		*rgb;
+
 	rgb = (int*)malloc(sizeof(int) * 12);
 	rgb[3] = RED0;
 	rgb[4] = GREEN0;
@@ -44,7 +46,7 @@ static int	*fdf_assign_color(int *rgb)
 	return (rgb);
 }
 
-static int	*fdf_get_color_minus(t_map *map, t_mlx *mlx, int *rgb)
+static void	fdf_get_color_minus(t_map *map, t_mlx *mlx, int *rgb)
 {
 	int		*min_max;
 	int		j;
@@ -56,10 +58,12 @@ static int	*fdf_get_color_minus(t_map *map, t_mlx *mlx, int *rgb)
 	rgb[0] = (rgb[3] - rgb[9]) * p + rgb[9];
 	rgb[1] = (rgb[4] - rgb[10]) * p + rgb[10];
 	rgb[2] = (rgb[5] - rgb[11]) * p + rgb[11];
-	return (rgb);
+	mlx->m_pixels[map->c][map->r]->red = rgb[0];
+	mlx->m_pixels[map->c][map->r]->green = rgb[1];
+	mlx->m_pixels[map->c][map->r]->blue = rgb[2];
 }
 
-static int	*fdf_get_color_plus(t_map *map, t_mlx *mlx, int *rgb)
+static void	fdf_get_color_plus(t_map *map, t_mlx *mlx, int *rgb)
 {
 	int		k;
 	int		*min_max;
@@ -71,21 +75,24 @@ static int	*fdf_get_color_plus(t_map *map, t_mlx *mlx, int *rgb)
 	rgb[0] = (rgb[3] - rgb[6]) * p + rgb[6];
 	rgb[1] = (rgb[4] - rgb[7]) * p + rgb[7];
 	rgb[2] = (rgb[5] - rgb[8]) * p + rgb[8];
-	return (rgb);
+	mlx->m_pixels[map->c][map->r]->red = rgb[0];
+	mlx->m_pixels[map->c][map->r]->green = rgb[1];
+	mlx->m_pixels[map->c][map->r]->blue = rgb[2];
 }
+
 void	fdf_my_color(t_map	*map, t_mlx *mlx)
 {
 	int		*rgb;
 //	int 	i;
 
 	map->c = 0;
+	rgb = fdf_assign_color();
 //	i = sqrtf((min_max[1] - min_max[0]) * (min_max[1] - min_max[0]));
 	while (map->c < map->map_y)
 	{
 		map->r = 0;
 		while (map->r < map->map_x)
 		{
-			rgb = fdf_assign_color(rgb);
 			if (mlx->m_pixels[map->c][map->r]->red == 0
 					&& mlx->m_pixels[map->c][map->r]->green == 0
 					   && mlx->m_pixels[map->c][map->r]->blue == 0)
@@ -94,13 +101,10 @@ void	fdf_my_color(t_map	*map, t_mlx *mlx)
 					fdf_get_color_minus(map, mlx, rgb);
 				else
 					fdf_get_color_plus(map, mlx, rgb);
-				mlx->m_pixels[map->c][map->r]->red = rgb[0];
-				mlx->m_pixels[map->c][map->r]->green = rgb[1];
-				mlx->m_pixels[map->c][map->r]->blue = rgb[2];
-				free (rgb);
 			}
 			map->r++;
 		}
 		map->c++;
 	}
+	free (rgb);
 }

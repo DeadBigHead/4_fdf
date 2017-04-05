@@ -26,14 +26,14 @@ static	void	set_z(t_map *map)
 		tmp = ft_strsub(map->line, map->beg, (map->end - map->beg));
 		nbr = ft_atoi(tmp);
 		map->tmp_z[map->i] = ft_atoi(tmp);
-//		if (nbr > MAXZ)
-//			map->tmp_z[map->i] = MAXZ;
-//		else if (nbr < MINZ)
-//			map->tmp_z[map->i] = MINZ;
-//		else
-//			map->tmp_z[map->i] = nbr;
-		(nbr > MAXZ) ? map->tmp_z[map->i] = MAXZ : map->tmp_z[map->i] = nbr;
-		(nbr < MINZ) ? map->tmp_z[map->i] = MINZ : map->tmp_z[map->i] = nbr;
+		if (nbr > MAXZ)
+			map->tmp_z[map->i] = MAXZ;
+		else if (nbr < MINZ)
+			map->tmp_z[map->i] = MINZ;
+		else
+			map->tmp_z[map->i] = nbr;
+//		(nbr > MAXZ) ? map->tmp_z[map->i] = MAXZ : map->tmp_z[map->i] = nbr;
+//		(nbr < MINZ) ? map->tmp_z[map->i] = MINZ : map->tmp_z[map->i] = nbr;
 		map->i++;
 		free(tmp);
 	}

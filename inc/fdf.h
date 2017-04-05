@@ -102,6 +102,18 @@ typedef struct			s_pixel
 	int					alpha;
 }						t_pixel;
 
+typedef struct			s_b
+{
+	int					dlx;
+	int					dly;
+	int					snx;
+	int					sny;
+	int					er;
+	int					e2;
+	float				i;
+	float				i2;
+	float				i3;
+}						t_b;
 /*
 ** ***m_pixels - holds map coordinates and color
 ** *ptr - mlx_init(); *win - mlx_new_window();
@@ -112,6 +124,7 @@ typedef struct			s_pixel
 typedef struct			s_mlx
 {
 	struct s_pixel		***m_pixels;
+	struct s_b			*b;
 	void				*ptr;
 	void				*win;
 	void				*img;
@@ -123,10 +136,10 @@ typedef struct			s_mlx
 	int 				imgy;
 	size_t				map_x;
 	size_t				map_y;
-	int					tmp_x1;
-	int					tmp_y1;
-	int					tmp_x2;
-	int					tmp_y2;
+	int					x1;
+	int					y1;
+	int					x2;
+	int					y2;
 	int					r0;
 	int					g0;
 	int					b0;
@@ -144,7 +157,7 @@ typedef struct			s_mlx
 	int 				height;
 	int 				wxcur;
 	int 				wycur;
-	int					zoom;
+	//int					zoom;
 }						t_mlx;
 
 /*
@@ -199,6 +212,14 @@ void					fdf_win_setup(t_mlx *mlx);
 
 void					fdf_mlx_init(t_mlx	*mlx);
 void					fdf_first_draw(t_mlx *mlx, t_map *map);
+void					fdf_redraw(t_mlx *mlx);
+void					fdf_redraw_zoom(t_mlx *mlx);
+void					fdf_move(int kcode, t_mlx *mlx);
+void					fdf_zoom(int kcode, t_mlx *mlx);
+void					fdf_rotate_x(int kcode, t_mlx *mlx);
+void					fdf_rotate_y(int kcode, t_mlx *mlx);
+void					fdf_rotate_z(int kcode, t_mlx *mlx);
+void					fdf_rotate(int kcode, t_mlx *data);
 /*
 ** Draw.
 */
