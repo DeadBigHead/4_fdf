@@ -7,6 +7,8 @@
 */
 void	fdf_win_setup(t_mlx *mlx)
 {
+	mlx->imgx = 0;
+	mlx->imgy = 0;
 	mlx->width = WIDTH;
 	mlx->height = HEIGHT;
 	mlx->wcenx = mlx->width / 2;

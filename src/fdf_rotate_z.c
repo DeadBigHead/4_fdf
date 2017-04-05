@@ -17,7 +17,7 @@ static void fdf_z_positive(t_mlx *mlx)
 			tmpy = mlx->m_pixels[mlx->c][mlx->r]->y;
 			mlx->m_pixels[mlx->c][mlx->r]->x =
 					tmpx * cos(r_plus) + tmpy * sin(r_plus);
-			mlx->m_pixels[mlx->c][mlx->r]->z =
+			mlx->m_pixels[mlx->c][mlx->r]->y =
 					tmpy * cos(r_plus) - tmpx * sin(r_plus);
 			mlx->r++;
 		}
@@ -42,7 +42,7 @@ static void fdf_z_negative(t_mlx *mlx)
 			tmpy = mlx->m_pixels[mlx->c][mlx->r]->y;
 			mlx->m_pixels[mlx->c][mlx->r]->x =
 					tmpx * cos(r_minus) + tmpy * sin(r_minus);
-			mlx->m_pixels[mlx->c][mlx->r]->z =
+			mlx->m_pixels[mlx->c][mlx->r]->y =
 					tmpy * cos(r_minus) - tmpx * sin(r_minus);
 			mlx->r++;
 		}
