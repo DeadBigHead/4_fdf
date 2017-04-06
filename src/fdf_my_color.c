@@ -5,24 +5,26 @@ static int		*find_min_max(t_map	*map, t_mlx *mlx)
 	int *min_max;
 	int j;
 	int k;
+	int c;
+	int r;
 
-	map->r = 0;
-	map->c = 0;
+	r = 0;
+	c = 0;
 	min_max = (int*)malloc(sizeof(int) * 2);
-	j = mlx->m_pixels[map->c][map->r]->z;
-	k = mlx->m_pixels[map->c][map->r]->z;
-	while (map->c < map->map_y)
+	j = mlx->m_pixels[c][r]->z;
+	k = mlx->m_pixels[c][r]->z;
+	while (c < map->map_y)
 	{
-		map->r = 0;
-		while (map->r < map->map_x)
+		r = 0;
+		while (r < map->map_x)
 		{
-			if (mlx->m_pixels[map->c][map->r]->z < j)
-				j = mlx->m_pixels[map->c][map->r]->z;
-			if (mlx->m_pixels[map->c][map->r]->z > k)
-				k = mlx->m_pixels[map->c][map->r]->z;
-			map->r++;
+			if (mlx->m_pixels[c][r]->z < j)
+				j = mlx->m_pixels[c][r]->z;
+			if (mlx->m_pixels[c][r]->z > k)
+				k = mlx->m_pixels[c][r]->z;
+			r++;
 		}
-		map->c++;
+		c++;
 	}
 	min_max[0] = j;
 	min_max[1] = k;

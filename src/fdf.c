@@ -14,6 +14,7 @@ int		main(int ac, char **av)
 		fdf_win_setup(&mlx);
 		fdf_mlx_init(&mlx);
 		fdf_first_draw(&mlx, &map);
+		mlx.zoom = 5;
 		mlx_hook (mlx.win, 2, 5, &fdf_key_core, &mlx);
 		mlx_loop(mlx.ptr);
 	}

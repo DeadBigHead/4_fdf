@@ -22,6 +22,9 @@
 # include "libft.h"
 # include "get_next_line.h"
 
+
+#include <stdio.h>
+
 typedef unsigned int	t_ui;
 typedef unsigned char	t_ch;
 
@@ -157,7 +160,7 @@ typedef struct			s_mlx
 	int 				height;
 	int 				wxcur;
 	int 				wycur;
-	//int					zoom;
+	int					zoom;
 }						t_mlx;
 
 /*
