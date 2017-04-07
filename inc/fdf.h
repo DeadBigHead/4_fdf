@@ -85,7 +85,7 @@ typedef unsigned char	t_ch;
 
 # define PI 3.14159265358979323846
 # define DTR(angleDegrees) (angleDegrees * PI / 180.0)
-# define DEGREE 3.1
+# define DEGREE 5
 
 
 //# define

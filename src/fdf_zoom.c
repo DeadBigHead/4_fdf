@@ -1,5 +1,24 @@
 #include "fdf.h"
 
+//int distance_cheker(t_mlx *mlx)
+//{
+//	int c;
+//	int r;
+//
+//	c = 0;
+//	while (c < mlx->map_y)
+//	{
+//		r = 0;
+//		while (r < mlx->map_x)
+//		{
+//			if ()
+//			r++;
+//		}
+//		c++;
+//	}
+//
+//}
+
 static void	fdf_scale(t_mlx *mlx, float n, int c, int r)
 {
 	mlx->m_pixels[c][r]->x *= n;
@@ -7,7 +26,7 @@ static void	fdf_scale(t_mlx *mlx, float n, int c, int r)
 	mlx->m_pixels[c][r]->z *= n;
 }
 
-static void fdf_scale_plus(t_mlx *mlx)
+static void fdf_scale_plus(t_mlx *mlx, float by)
 {
 	int c;
 	int r;
@@ -18,26 +37,26 @@ static void fdf_scale_plus(t_mlx *mlx)
 	r = 0;
 //	if ((mlx->xcen - mlx->m_pixels[c][r]->x) < mlx->width * 20)
 //	{
-		tmpx = mlx->wxcur;
-		tmpy = mlx->wycur;
-		fdf_center_zero(mlx);
-		while (c < mlx->map_y)
+	tmpx = mlx->wxcur;
+	tmpy = mlx->wycur;
+	fdf_center_zero(mlx);
+	while (c < mlx->map_y)
+	{
+		r = 0;
+		while (r < mlx->map_x)
 		{
-			r = 0;
-			while (r < mlx->map_x)
-			{
-				fdf_scale(mlx, 1.1, c, r);
-				r++;
-				mlx->zoom++;
-			}
-			c++;
+			fdf_scale(mlx, by, c, r);
+			r++;
+			mlx->zoom++;
 		}
-		mlx->wxcur = tmpx;
-		mlx->wycur = tmpy;
+		c++;
+	}
+	mlx->wxcur = tmpx;
+	mlx->wycur = tmpy;
 //	}
 }
 
-static void fdf_scale_minus(t_mlx *mlx)
+static void fdf_scale_minus(t_mlx *mlx, float by)
 {
 	int c;
 	int r;
@@ -50,22 +69,22 @@ static void fdf_scale_minus(t_mlx *mlx)
 //		if (data->m_pixels[c][r]->x < (data->xcen - 10)
 //				|| data->m_pixels[c][r]->y < (data->ycen - 10))
 //	{
-		tmpx = mlx->wxcur;
-		tmpy = mlx->wycur;
-		fdf_center_zero(mlx);
-		while (c < mlx->map_y)
+	tmpx = mlx->wxcur;
+	tmpy = mlx->wycur;
+	fdf_center_zero(mlx);
+	while (c < mlx->map_y)
+	{
+		r = 0;
+		while (r < mlx->map_x)
 		{
-			r = 0;
-			while (r < mlx->map_x)
-			{
-				fdf_scale(mlx, 0.9, c, r);
-				r++;
-				mlx->zoom--;
-			}
-			c++;
+			fdf_scale(mlx, by, c, r);
+			r++;
+			mlx->zoom--;
 		}
-		mlx->wxcur = tmpx;
-		mlx->wycur = tmpy;
+		c++;
+	}
+	mlx->wxcur = tmpx;
+	mlx->wycur = tmpy;
 //	}
 }
 
@@ -73,13 +92,16 @@ void	fdf_zoom(int kcode, t_mlx *mlx)
 {
 	int c;
 	int r;
-	int zoomp = (mlx->map_y *  mlx->map_x) * 5;
+	int zoomp = (mlx->map_y *  mlx->map_x) * 215;
 	int zoomm = ((mlx->map_y *  mlx->map_x) * 5) * -1;
+	float by;
+//	float dif = mlx->m_pixels[0][0]->x
 
 	fdf_center_find(mlx);
-	if (kcode == PLUS && mlx->zoom < zoomp)
+	if (kcode == PLUS)
 	{
-		fdf_scale_plus(mlx);
+		by = 1.1;
+		fdf_scale_plus(mlx, by);
 		fdf_redraw_zoom(mlx);
 		c = 0;
 		while (c < mlx->map_y)
@@ -95,12 +117,15 @@ void	fdf_zoom(int kcode, t_mlx *mlx)
 			printf("\n");
 			c++;
 		}
+		printf("\n");
+		fdf_center_find(mlx);
 //		if (mlx->zoom > 10)
 //			mlx->zoom = 10;
 	}
-	if (kcode == MINUS && mlx->zoom > zoomm)
+	if (kcode == MINUS)
 	{
-		fdf_scale_minus(mlx);
+		by = 0.909090;
+		fdf_scale_minus(mlx, by);
 		fdf_redraw_zoom(mlx);
 		c = 0;
 		while (c < mlx->map_y)
@@ -113,8 +138,11 @@ void	fdf_zoom(int kcode, t_mlx *mlx)
 				printf("%f| ", mlx->m_pixels[c][r]->z);
 				r++;
 			}
+			printf("\n");
 			c++;
 		}
+		printf("\n");
+		fdf_center_find(mlx);
 //		if (mlx->zoom < 0)
 //			mlx->zoom = 0;
 	}
