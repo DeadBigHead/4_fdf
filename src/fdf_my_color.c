@@ -74,6 +74,13 @@ static void	fdf_get_color_plus(t_map *map, t_mlx *mlx, int *rgb)
 	min_max = find_min_max(map, mlx);
 	k = min_max[1];
 	p = (k - mlx->m_pixels[map->c][map->r]->z) / k;
+	if (k == 0)
+	{
+		mlx->m_pixels[map->c][map->r]->red = rgb[3];
+		mlx->m_pixels[map->c][map->r]->green = rgb[4];
+		mlx->m_pixels[map->c][map->r]->blue = rgb[5];
+		return;
+	}
 	rgb[0] = (rgb[3] - rgb[6]) * p + rgb[6];
 	rgb[1] = (rgb[4] - rgb[7]) * p + rgb[7];
 	rgb[2] = (rgb[5] - rgb[8]) * p + rgb[8];

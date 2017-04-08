@@ -1,24 +1,5 @@
 #include "fdf.h"
 
-//int distance_cheker(t_mlx *mlx)
-//{
-//	int c;
-//	int r;
-//
-//	c = 0;
-//	while (c < mlx->map_y)
-//	{
-//		r = 0;
-//		while (r < mlx->map_x)
-//		{
-//			if ()
-//			r++;
-//		}
-//		c++;
-//	}
-//
-//}
-
 static void	fdf_scale(t_mlx *mlx, float n, int c, int r)
 {
 	mlx->m_pixels[c][r]->x *= n;
@@ -34,9 +15,6 @@ static void fdf_scale_plus(t_mlx *mlx, float by)
 	int tmpy;
 
 	c = 0;
-	r = 0;
-//	if ((mlx->xcen - mlx->m_pixels[c][r]->x) < mlx->width * 20)
-//	{
 	tmpx = mlx->wxcur;
 	tmpy = mlx->wycur;
 	fdf_center_zero(mlx);
@@ -47,13 +25,16 @@ static void fdf_scale_plus(t_mlx *mlx, float by)
 		{
 			fdf_scale(mlx, by, c, r);
 			r++;
-			mlx->zoom++;
 		}
 		c++;
 	}
+//	if (mlx->zoom > 0)
+//		mlx->bound += 65;
+//	else if (mlx->zoom > 0 && mlx->map_y > 400 || mlx->map_x > 400)
+//		mlx->bound += 5;
+	mlx->zoom++;
 	mlx->wxcur = tmpx;
 	mlx->wycur = tmpy;
-//	}
 }
 
 static void fdf_scale_minus(t_mlx *mlx, float by)
@@ -64,11 +45,6 @@ static void fdf_scale_minus(t_mlx *mlx, float by)
 	int tmpy;
 
 	c = 0;
-	r = 0;
-//	if ((mlx->xcen - mlx->m_pixels[c][r]->x) > mlx->width * 0.01)
-//		if (data->m_pixels[c][r]->x < (data->xcen - 10)
-//				|| data->m_pixels[c][r]->y < (data->ycen - 10))
-//	{
 	tmpx = mlx->wxcur;
 	tmpy = mlx->wycur;
 	fdf_center_zero(mlx);
@@ -79,71 +55,46 @@ static void fdf_scale_minus(t_mlx *mlx, float by)
 		{
 			fdf_scale(mlx, by, c, r);
 			r++;
-			mlx->zoom--;
 		}
 		c++;
 	}
+//	if (mlx->zoom > 0)
+//		mlx->bound -= 50;
+	mlx->zoom--;
 	mlx->wxcur = tmpx;
 	mlx->wycur = tmpy;
-//	}
 }
 
 void	fdf_zoom(int kcode, t_mlx *mlx)
 {
-	int c;
-	int r;
-	int zoomp = (mlx->map_y *  mlx->map_x) * 215;
-	int zoomm = ((mlx->map_y *  mlx->map_x) * 5) * -1;
 	float by;
-//	float dif = mlx->m_pixels[0][0]->x
+	int x;
+	int nbr;
+	int i;
 
+	mlx->bound = mlx->b->i;
+	i = 0;
+	if(mlx->map_x > 50 || mlx->map_y > 50)
+	{
+		x = 50;
+		while (x != mlx->map_x || x != mlx->map_y)
+		{
+			x += 50;
+			i++;
+		}
+	}
+	nbr = 22+i*3;
 	fdf_center_find(mlx);
-	if (kcode == PLUS)
+	if (kcode == PLUS && mlx->zoom <= nbr)
 	{
 		by = 1.1;
 		fdf_scale_plus(mlx, by);
 		fdf_redraw_zoom(mlx);
-		c = 0;
-		while (c < mlx->map_y)
-		{
-			r = 0;
-			while (r < mlx->map_x)
-			{
-				printf("|%f, ", mlx->m_pixels[c][r]->x);
-				printf("%f, ", mlx->m_pixels[c][r]->y);
-				printf("%f| ", mlx->m_pixels[c][r]->z);
-				r++;
-			}
-			printf("\n");
-			c++;
-		}
-		printf("\n");
-		fdf_center_find(mlx);
-//		if (mlx->zoom > 10)
-//			mlx->zoom = 10;
 	}
-	if (kcode == MINUS)
+	if (kcode == MINUS && mlx->zoom >= -15)
 	{
 		by = 0.909090;
 		fdf_scale_minus(mlx, by);
 		fdf_redraw_zoom(mlx);
-		c = 0;
-		while (c < mlx->map_y)
-		{
-			r = 0;
-			while (r < mlx->map_x)
-			{
-				printf("|%f, ", mlx->m_pixels[c][r]->x);
-				printf("%f, ", mlx->m_pixels[c][r]->y);
-				printf("%f| ", mlx->m_pixels[c][r]->z);
-				r++;
-			}
-			printf("\n");
-			c++;
-		}
-		printf("\n");
-		fdf_center_find(mlx);
-//		if (mlx->zoom < 0)
-//			mlx->zoom = 0;
 	}
 }

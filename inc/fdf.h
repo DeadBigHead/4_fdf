@@ -161,6 +161,7 @@ typedef struct			s_mlx
 	int 				wxcur;
 	int 				wycur;
 	int					zoom;
+	int 				bound;
 }						t_mlx;
 
 /*
@@ -219,6 +220,8 @@ void					fdf_redraw(t_mlx *mlx);
 void					fdf_redraw_zoom(t_mlx *mlx);
 void					fdf_move(int kcode, t_mlx *mlx);
 void					fdf_zoom(int kcode, t_mlx *mlx);
+void					fdf_zoom_auto_plus(t_mlx *mlx);
+void					fdf_zoom_auto_minus(t_mlx *mlx);
 void					fdf_rotate_x(int kcode, t_mlx *mlx);
 void					fdf_rotate_y(int kcode, t_mlx *mlx);
 void					fdf_rotate_z(int kcode, t_mlx *mlx);

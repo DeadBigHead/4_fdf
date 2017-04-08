@@ -13,5 +13,4 @@ void	fdf_center_find(t_mlx *data)
 	y2 = data->m_pixels[data->map_y - 1][data->map_x - 1]->y;
 	data->xcen = (x1 + x2) / 2;
 	data->ycen = (y1 + y2) / 2;
-	printf("- %d, %d\n", data->xcen, data->ycen);
 }

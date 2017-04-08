@@ -16,14 +16,22 @@ void	draw_pixel(t_mlx *mlx, int flag, float p)
 		int b = (mlx->b1 - mlx->b0) * p + mlx->b0;
 		if (mlx->end == 1)
 		{
-			mlx->str[i] = mlx->m_pixels[mlx->c][mlx->r]->red;
-			mlx->str[i + 1] = mlx->m_pixels[mlx->c][mlx->r]->green;
-			mlx->str[i + 2] = mlx->m_pixels[mlx->c][mlx->r]->blue;
-			mlx->str[i + 3] = mlx->m_pixels[mlx->c][mlx->r]->alpha;
+//			mlx->str[i] = mlx->m_pixels[mlx->c][mlx->r]->red;
+//			mlx->str[i + 1] = mlx->m_pixels[mlx->c][mlx->r]->green;
+//			mlx->str[i + 2] = mlx->m_pixels[mlx->c][mlx->r]->blue;
+//			mlx->str[i + 3] = mlx->m_pixels[mlx->c][mlx->r]->alpha;
 		}
 		else if (mlx->end == 0)
 		{
 //			data->mlx_str[i] = data->m_pixels[map->c][map->r]->alpha;
+//			if (mlx->x1 == mlx->m_pixels[mlx->c - 1][mlx->r - 1]->x
+//					&& mlx->y1 == mlx->m_pixels[mlx->c - 1][mlx->r - 1]->y
+//					&& f == 1)
+//			{
+//				mlx->str[i] = mlx->m_pixels[mlx->c][mlx->r]->red;
+//				mlx->str[i + 1] = mlx->m_pixels[mlx->c][mlx->r]->green;
+//				mlx->str[i + 2] = mlx->m_pixels[mlx->c][mlx->r]->blue;
+//			}
 			mlx->str[i + 0] = b;
 			mlx->str[i + 1] = g;
 			mlx->str[i + 2] = r;
@@ -68,7 +76,6 @@ void	draw_line(t_mlx *mlx)
 	mlx->b->snx = mlx->x1 < mlx->x2 ? 1 : -1;
 	mlx->b->sny = mlx->y1 < mlx->y2 ? 1 : -1;
 	mlx->b->er = mlx->b->dlx - mlx->b->dly;
-//	draw_pixel(map, pixel, 0);
 	while (mlx->x1 != mlx->x2 || mlx->y1 != mlx->y2)
 	{
 		mlx->b->i2 = sqrtf((mlx->x2 - mlx->x1) * (mlx->x2 - mlx->x1)
@@ -78,8 +85,8 @@ void	draw_line(t_mlx *mlx)
 		mlx->b->e2 = mlx->b->er * 2;
 		(mlx->b->e2 > -mlx->b->dly) ? (mlx->b->er -= mlx->b->dly) : 0;
 		(mlx->b->e2 > -mlx->b->dly) ? (mlx->x1 += mlx->b->snx) : 0;
-		if ((mlx->x1 < -300 || mlx->x1 > WIDTH + 300 ||
-				mlx->y1 < -300 || mlx->y1 > HEIGHT + 300))
+		if ((mlx->x1 < -(mlx->bound) || mlx->x1 > WIDTH + mlx->bound ||
+				mlx->y1 < -(mlx->bound)|| mlx->y1 > HEIGHT + mlx->bound))
 			return;
 		if (mlx->b->e2 < mlx->b->dlx)
 		{
@@ -142,5 +149,15 @@ void	fdf_draw(t_mlx *mlx)
 			mlx->r++;
 		}
 		mlx->c++;
+	}
+	mlx->x1 = mlx->m_pixels[mlx->c - 1][mlx->r - 1]->x;
+	mlx->y1 = mlx->m_pixels[mlx->c - 1][mlx->r - 1]->y;
+	size_t i = (mlx->y1 * mlx->line_sz + (mlx->x1 * (mlx->bit / 8)));
+	if (i < mlx->total_size &&
+		mlx->x1 > 0 && mlx->x1 < WIDTH)
+	{
+		mlx->str[i] = mlx->m_pixels[mlx->c - 1][mlx->r - 1]->blue;
+		mlx->str[i + 1] = mlx->m_pixels[mlx->c - 1][mlx->r - 1]->green;
+		mlx->str[i + 2] = mlx->m_pixels[mlx->c - 1][mlx->r - 1]->red;
 	}
 }
