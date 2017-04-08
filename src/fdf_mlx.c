@@ -8,6 +8,7 @@ void	fdf_redraw_zoom(t_mlx *mlx)
 	fdf_center_current(mlx);
 	fdf_draw(mlx);
 	mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img, mlx->imgx, mlx->imgy);
+	fdf_ui(mlx);
 }
 
 void	fdf_redraw(t_mlx *mlx)
@@ -16,6 +17,7 @@ void	fdf_redraw(t_mlx *mlx)
 	ft_bzero(mlx->str, mlx->total_size);
 	fdf_draw(mlx);
 	mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img, mlx->imgx, mlx->imgy);
+	fdf_ui(mlx);
 }
 
 /*

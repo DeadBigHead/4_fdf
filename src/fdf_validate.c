@@ -19,7 +19,6 @@ size_t	count_symbols(t_map *map)
 			nbr++;
 		i++;
 	}
-	fdf_nbr_error(map, nbr);
 	return (nbr);
 }
 
@@ -47,6 +46,7 @@ void	fdf_validate(t_map *map)
 		if (map->map_x == 0)
 		{
 			map->map_x = count_symbols(map);
+//			fdf_nbr_error(map, map->map_x);
 			free(map->line);
 			map->map_y++;
 			continue;

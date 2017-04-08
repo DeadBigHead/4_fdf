@@ -162,6 +162,7 @@ typedef struct			s_mlx
 	int 				wycur;
 	int					zoom;
 	int 				bound;
+	char 				**name;
 }						t_mlx;
 
 /*
@@ -213,6 +214,7 @@ int						ft_atoi_hex(char *s);
 ** Window
 */
 void					fdf_win_setup(t_mlx *mlx);
+void					fdf_ui(t_mlx *mlx);
 
 void					fdf_mlx_init(t_mlx	*mlx);
 void					fdf_first_draw(t_mlx *mlx, t_map *map);

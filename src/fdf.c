@@ -22,6 +22,8 @@ int		main(int ac, char **av)
 		fdf_first_draw(&mlx, &map);
 		mlx.zoom = 0;
 		mlx.bound = 25;
+		mlx.name = map.name;
+		fdf_ui(&mlx);
 		mlx_hook (mlx.win, 2, 5, &fdf_key_core, &mlx);
 		mlx_loop(mlx.ptr);
 	}

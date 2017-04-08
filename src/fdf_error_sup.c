@@ -63,7 +63,7 @@ void	fdf_nbr_error(t_map *map, size_t i)
 		fdf_close_file(map);
 		fdf_error(OONE);
 	}
-	else if (map->map_x < 2 && map->map_y < 2)
+	else if (map->map_x < 2 || map->map_y < 2)
 	{
 		fdf_close_file(map);
 		fdf_error(OONE);
