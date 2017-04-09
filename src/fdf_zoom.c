@@ -72,7 +72,8 @@ void	fdf_zoom(int kcode, t_mlx *mlx)
 	int nbr;
 	int i;
 
-	mlx->bound = mlx->b->i;
+	if (mlx->map_x > 300 || mlx->map_y > 300)
+		mlx->bound = mlx->b->i;
 	i = 0;
 	if(mlx->map_x > 50 || mlx->map_y > 50)
 	{

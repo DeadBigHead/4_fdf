@@ -161,7 +161,7 @@ typedef struct			s_mlx
 	int 				wxcur;
 	int 				wycur;
 	int					zoom;
-	int 				bound;
+	long 				bound;
 	char 				**name;
 }						t_mlx;
 
