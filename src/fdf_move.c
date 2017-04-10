@@ -1,6 +1,6 @@
 #include "fdf.h"
 
-static void fdf_move_up(t_mlx *mlx)
+static void 	fdf_move_up(t_mlx *mlx)
 {
 	int c;
 	int r;
@@ -19,7 +19,7 @@ static void fdf_move_up(t_mlx *mlx)
 	mlx->wycur -= 10;
 }
 
-static void fdf_move_down(t_mlx *mlx)
+static void 	fdf_move_down(t_mlx *mlx)
 {
 	int c;
 	int r;
@@ -38,7 +38,7 @@ static void fdf_move_down(t_mlx *mlx)
 	mlx->wycur += 10;
 }
 
-static void fdf_move_right(t_mlx *mlx)
+static void 	fdf_move_right(t_mlx *mlx)
 {
 	int c;
 	int r;
@@ -57,7 +57,7 @@ static void fdf_move_right(t_mlx *mlx)
 	mlx->wxcur += 10;
 }
 
-static void fdf_move_left(t_mlx *mlx)
+static void		fdf_move_left(t_mlx *mlx)
 {
 	int c;
 	int r;
@@ -76,7 +76,7 @@ static void fdf_move_left(t_mlx *mlx)
 	mlx->wxcur -= 10;
 }
 
-void	fdf_move(int kcode, t_mlx *mlx)
+void			fdf_move(int kcode, t_mlx *mlx)
 {
 	if (kcode == UP)
 	{

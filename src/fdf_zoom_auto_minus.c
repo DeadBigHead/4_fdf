@@ -1,6 +1,6 @@
 #include "fdf.h"
 
-void	zoom_minus_y(t_mlx *mlx)
+static void		zoom_minus_y(t_mlx *mlx)
 {
 	int c;
 	int r;
@@ -23,7 +23,7 @@ void	zoom_minus_y(t_mlx *mlx)
 	}
 }
 
-void	zoom_minus_x(t_mlx *mlx)
+static void		zoom_minus_x(t_mlx *mlx)
 {
 	int c;
 	int r;
@@ -46,7 +46,7 @@ void	zoom_minus_x(t_mlx *mlx)
 	}
 }
 
-void	fdf_zoom_auto_minus(t_mlx *mlx)
+void			fdf_zoom_auto_minus(t_mlx *mlx)
 {
 	if (mlx->map_x > mlx->map_y)
 		zoom_minus_y(mlx);

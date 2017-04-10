@@ -2,10 +2,6 @@
 
 void	fdf_ui(t_mlx *mlx)
 {
-	char *name;
-
-	name = ft_strjoin("Map name: ", mlx->name[1]);
-	mlx_string_put(mlx->ptr , mlx->win, 20, 700, 0x00FFFFFF, name);
 	mlx_string_put(mlx->ptr , mlx->win, 20, 740, 0x00FFFFFF, "Controls:");
 	mlx_string_put(mlx->ptr , mlx->win, 20, 760, 0x00FFFFFF, "Exit: ESC");
 	mlx_string_put(mlx->ptr , mlx->win, 20, 780, 0x00FFFFFF,

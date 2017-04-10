@@ -1,6 +1,6 @@
 #include "fdf.h"
 
-static void fdf_x_positive(t_mlx *mlx)
+static void		fdf_x_positive(t_mlx *mlx)
 {
 	float	tmpy;
 	float	tmpz;
@@ -26,7 +26,7 @@ static void fdf_x_positive(t_mlx *mlx)
 	}
 }
 
-static void fdf_x_negative(t_mlx *mlx)
+static void		fdf_x_negative(t_mlx *mlx)
 {
 	float	tmpy;
 	float	tmpz;
@@ -51,7 +51,7 @@ static void fdf_x_negative(t_mlx *mlx)
 	}
 }
 
-void	fdf_rotate_x(int kcode, t_mlx *mlx)
+void			fdf_rotate_x(int kcode, t_mlx *mlx)
 {
 	if (kcode == QKEY)
 	{

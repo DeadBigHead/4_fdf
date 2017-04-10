@@ -1,6 +1,6 @@
 #include "fdf.h"
 
-static	void	color_support(t_map *map, int n, int k)
+static void		color_support(t_map *map, int n, int k)
 {
 	while (n <= k)
 	{
@@ -10,7 +10,7 @@ static	void	color_support(t_map *map, int n, int k)
 	}
 }
 
-static	void	zero_color(t_map *map, int i)
+static void		zero_color(t_map *map, int i)
 {
 	if (i / 2 == 0)
 		color_support(map, 0, 3);
@@ -26,7 +26,7 @@ static	void	zero_color(t_map *map, int i)
 	}
 }
 
-static	void	present_color(t_map *map, int i)
+static void		present_color(t_map *map, int i)
 {
 	char	*tmp;
 	int		v;
@@ -55,7 +55,7 @@ static	void	present_color(t_map *map, int i)
 	zero_color(map, i);
 }
 
-int		fdf_pixel_color(t_map *map)
+int				fdf_pixel_color(t_map *map)
 {
 	int		i;
 	int		k;

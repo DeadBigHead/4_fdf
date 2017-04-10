@@ -1,76 +1,50 @@
 #include "fdf.h"
 
-void	draw_pixel(t_mlx *mlx, int flag, float p)
+static void		draw_corner(t_mlx *mlx)
 {
 	size_t i;
 
-//	if (data->tmp_x1 < 0 || data->tmp_x1 > WIDTH ||
-//		data->tmp_y1 < 0 || data->tmp_y1 > HEIGHT)
-//		data->step++;
+	mlx->x1 = mlx->m_pixels[mlx->c - 1][mlx->r - 1]->x;
+	mlx->y1 = mlx->m_pixels[mlx->c - 1][mlx->r - 1]->y;
 	i = (mlx->y1 * mlx->line_sz + (mlx->x1 * (mlx->bit / 8)));
-	if (flag == 1 && i < mlx->total_size &&
-			mlx->x1 > 0 && mlx->x1 < WIDTH)
+	if (i < mlx->total_size && mlx->x1 > 0 && mlx->x1 < WIDTH)
 	{
-		int r = (mlx->r1 - mlx->r0) * p + mlx->r0;
-		int g = (mlx->g1 - mlx->g0) * p + mlx->g0;
-		int b = (mlx->b1 - mlx->b0) * p + mlx->b0;
+		mlx->str[i] = mlx->m_pixels[mlx->c - 1][mlx->r - 1]->blue;
+		mlx->str[i + 1] = mlx->m_pixels[mlx->c - 1][mlx->r - 1]->green;
+		mlx->str[i + 2] = mlx->m_pixels[mlx->c - 1][mlx->r - 1]->red;
+	}
+}
+
+static void		draw_pixel(t_mlx *mlx, int flag, float p)
+{
+	size_t	i;
+	int 	rgb[3];
+
+	i = (mlx->y1 * mlx->line_sz + (mlx->x1 * (mlx->bit / 8)));
+	if (flag == 1 && i < mlx->total_size && mlx->x1 > 0 && mlx->x1 < WIDTH)
+	{
+		rgb[0] = (mlx->r1 - mlx->r0) * p + mlx->r0;
+		rgb[1] = (mlx->g1 - mlx->g0) * p + mlx->g0;
+		rgb[2] = (mlx->b1 - mlx->b0) * p + mlx->b0;
 		if (mlx->end == 1)
 		{
-//			mlx->str[i] = mlx->m_pixels[mlx->c][mlx->r]->red;
-//			mlx->str[i + 1] = mlx->m_pixels[mlx->c][mlx->r]->green;
-//			mlx->str[i + 2] = mlx->m_pixels[mlx->c][mlx->r]->blue;
-//			mlx->str[i + 3] = mlx->m_pixels[mlx->c][mlx->r]->alpha;
+			mlx->str[i + 0] = rgb[0];
+			mlx->str[i + 1] = rgb[1];
+			mlx->str[i + 2] = rgb[2];
 		}
 		else if (mlx->end == 0)
 		{
-//			data->mlx_str[i] = data->m_pixels[map->c][map->r]->alpha;
-//			if (mlx->x1 == mlx->m_pixels[mlx->c - 1][mlx->r - 1]->x
-//					&& mlx->y1 == mlx->m_pixels[mlx->c - 1][mlx->r - 1]->y
-//					&& f == 1)
-//			{
-//				mlx->str[i] = mlx->m_pixels[mlx->c][mlx->r]->red;
-//				mlx->str[i + 1] = mlx->m_pixels[mlx->c][mlx->r]->green;
-//				mlx->str[i + 2] = mlx->m_pixels[mlx->c][mlx->r]->blue;
-//			}
-			mlx->str[i + 0] = b;
-			mlx->str[i + 1] = g;
-			mlx->str[i + 2] = r;
+			mlx->str[i + 0] = rgb[2];
+			mlx->str[i + 1] = rgb[1];
+			mlx->str[i + 2] = rgb[0];
 		}
-//	}
-//	else if (flag == 0)
-//	{
-//		i = (map->tmp_y1 * data->size_line +
-//			 (map->tmp_x1 * (data->bits / 8)));
-//		if (data->endian == 0)
-//		{
-//			data->mlx_str[i] = data->m_pixels[map->c][map->r]->red;
-//			data->mlx_str[i + 1] = data->m_pixels[map->c][map->r]->green;
-//			data->mlx_str[i + 2] = data->m_pixels[map->c][map->r]->blue;
-//			data->mlx_str[i + 3] = data->m_pixels[map->c][map->r]->alpha;
-//		}
-//		else if (data->endian == 1)
-//		{
-//			data->mlx_str[i] = data->m_pixels[map->c][map->r]->alpha;
-//			data->mlx_str[i + 1] = data->m_pixels[map->c][map->r]->blue;
-//			data->mlx_str[i + 2] = data->m_pixels[map->c][map->r]->green;
-//			data->mlx_str[i + 3] = data->m_pixels[map->c][map->r]->red;
-//		}
 	}
-	return;
+	else if (flag == 2)
+		draw_corner(mlx);
 }
 
-void	draw_line(t_mlx *mlx)
+static void		draw_line(t_mlx *mlx)
 {
-//	int        delta_x;
-//	int        delta_y;
-//	int        sign_x;
-//	int        sign_y;
-//	int			error;
-//	int 		error2;
-//	float 		i;
-//	float 		i2;
-//	float 		i3;
-
 	mlx->b->dlx = abs(mlx->x2 - mlx->x1);
 	mlx->b->dly = abs(mlx->y2 - mlx->y1);
 	mlx->b->snx = mlx->x1 < mlx->x2 ? 1 : -1;
@@ -96,7 +70,7 @@ void	draw_line(t_mlx *mlx)
 	}
 }
 
-void	dup_coords(t_mlx *mlx, int flag)
+static void		dup_coords(t_mlx *mlx, int flag)
 {
 	mlx->x1 = mlx->m_pixels[mlx->c][mlx->r]->x;
 	mlx->y1 = mlx->m_pixels[mlx->c][mlx->r]->y;
@@ -123,10 +97,8 @@ void	dup_coords(t_mlx *mlx, int flag)
 					  + (mlx->y2 - mlx->y1) * (mlx->y2 - mlx->y1));
 }
 
-void	fdf_draw(t_mlx *mlx)
+void			fdf_draw(t_mlx *mlx)
 {
-	int flag;
-
 	mlx->b = (t_b*)malloc(sizeof(t_b));
 	mlx->c = 0;
 	while (mlx->c < mlx->map_y)
@@ -136,28 +108,17 @@ void	fdf_draw(t_mlx *mlx)
 		{
 			if (mlx->r + 1 < mlx->map_x)
 			{
-				flag = 1;
-				dup_coords(mlx, flag);
+				dup_coords(mlx, 1);
 				draw_line(mlx);
 			}
 			if (mlx->c + 1 < mlx->map_y)
 			{
-				flag = 2;
-				dup_coords(mlx, flag);
+				dup_coords(mlx, 2);
 				draw_line(mlx);
 			}
 			mlx->r++;
 		}
 		mlx->c++;
 	}
-	mlx->x1 = mlx->m_pixels[mlx->c - 1][mlx->r - 1]->x;
-	mlx->y1 = mlx->m_pixels[mlx->c - 1][mlx->r - 1]->y;
-	size_t i = (mlx->y1 * mlx->line_sz + (mlx->x1 * (mlx->bit / 8)));
-	if (i < mlx->total_size &&
-		mlx->x1 > 0 && mlx->x1 < WIDTH)
-	{
-		mlx->str[i] = mlx->m_pixels[mlx->c - 1][mlx->r - 1]->blue;
-		mlx->str[i + 1] = mlx->m_pixels[mlx->c - 1][mlx->r - 1]->green;
-		mlx->str[i + 2] = mlx->m_pixels[mlx->c - 1][mlx->r - 1]->red;
-	}
+	draw_pixel(mlx, 2, 0);
 }

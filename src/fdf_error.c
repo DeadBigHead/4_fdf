@@ -5,7 +5,7 @@
 ** Outputs taken argument string, to the standard output.
 ** And terminates the program.
 */
-void	error_exit(char *s)
+static void		error_exit(char *s)
 {
 	char	*use;
 
@@ -18,7 +18,7 @@ void	error_exit(char *s)
 ** fdf_error
 ** Takes an typedef int and sends the corresponding error line to error_exit.
 */
-void	fdf_error(int n)
+void			fdf_error(int n)
 {
 	if (n == USAGE)
 		error_exit("Usage: ./fdf <filename>\n");

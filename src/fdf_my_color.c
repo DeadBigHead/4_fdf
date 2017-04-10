@@ -3,35 +3,32 @@
 static int		*find_min_max(t_map	*map, t_mlx *mlx)
 {
 	int *min_max;
-	int j;
-	int k;
-	int c;
-	int r;
+	int tmp[4];
 
-	r = 0;
-	c = 0;
+	tmp[0] = 0;
+	tmp[1] = 0;
 	min_max = (int*)malloc(sizeof(int) * 2);
-	j = mlx->m_pixels[c][r]->z;
-	k = mlx->m_pixels[c][r]->z;
-	while (c < map->map_y)
+	tmp[2] = mlx->m_pixels[tmp[0]][tmp[1]]->z;
+	tmp[3] = mlx->m_pixels[tmp[0]][tmp[1]]->z;
+	while (tmp[0] < map->map_y)
 	{
-		r = 0;
-		while (r < map->map_x)
+		tmp[1] = 0;
+		while (tmp[1] < map->map_x)
 		{
-			if (mlx->m_pixels[c][r]->z < j)
-				j = mlx->m_pixels[c][r]->z;
-			if (mlx->m_pixels[c][r]->z > k)
-				k = mlx->m_pixels[c][r]->z;
-			r++;
+			if (mlx->m_pixels[tmp[0]][tmp[1]]->z < tmp[2])
+				tmp[2] = mlx->m_pixels[tmp[0]][tmp[1]]->z;
+			if (mlx->m_pixels[tmp[0]][tmp[1]]->z > tmp[3])
+				tmp[3] = mlx->m_pixels[tmp[0]][tmp[1]]->z;
+			tmp[1]++;
 		}
-		c++;
+		tmp[0]++;
 	}
-	min_max[0] = j;
-	min_max[1] = k;
+	min_max[0] = tmp[2];
+	min_max[1] = tmp[3];
 	return (min_max);
 }
 
-static int	*fdf_assign_color()
+static int		*fdf_assign_color()
 {
 	int		*rgb;
 
@@ -48,7 +45,7 @@ static int	*fdf_assign_color()
 	return (rgb);
 }
 
-static void	fdf_get_color_minus(t_map *map, t_mlx *mlx, int *rgb)
+static void		fdf_get_color_minus(t_map *map, t_mlx *mlx, int *rgb)
 {
 	int		*min_max;
 	int		j;
@@ -65,7 +62,7 @@ static void	fdf_get_color_minus(t_map *map, t_mlx *mlx, int *rgb)
 	mlx->m_pixels[map->c][map->r]->blue = rgb[2];
 }
 
-static void	fdf_get_color_plus(t_map *map, t_mlx *mlx, int *rgb)
+static void		fdf_get_color_plus(t_map *map, t_mlx *mlx, int *rgb)
 {
 	int		k;
 	int		*min_max;
@@ -89,14 +86,12 @@ static void	fdf_get_color_plus(t_map *map, t_mlx *mlx, int *rgb)
 	mlx->m_pixels[map->c][map->r]->blue = rgb[2];
 }
 
-void	fdf_my_color(t_map	*map, t_mlx *mlx)
+void			fdf_my_color(t_map	*map, t_mlx *mlx)
 {
 	int		*rgb;
-//	int 	i;
 
 	map->c = 0;
 	rgb = fdf_assign_color();
-//	i = sqrtf((min_max[1] - min_max[0]) * (min_max[1] - min_max[0]));
 	while (map->c < map->map_y)
 	{
 		map->r = 0;

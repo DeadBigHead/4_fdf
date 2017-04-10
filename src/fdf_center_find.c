@@ -2,10 +2,10 @@
 
 void	fdf_center_find(t_mlx *data)
 {
-	int x1;
-	int x2;
-	int y1;
-	int y2;
+	int		x1;
+	int		x2;
+	int		y1;
+	int		y2;
 
 	x1 = data->m_pixels[0][0]->x;
 	y1 = data->m_pixels[0][0]->y;

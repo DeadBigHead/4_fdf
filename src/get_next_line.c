@@ -27,7 +27,7 @@ static t_list	*file_manage(t_list **head, const int fd)
 	}
 	current = ft_lstnew("\0", file_des);
 	ft_lstadd(head, current);
-	*((char*)current->content) = NULL;
+	*((char*)current->content) = 0;
 	current = *head;
 	return (current);
 }
@@ -72,35 +72,43 @@ static void		gnl_i_ll_be_back(char **s, char delim)
 	free(tmp);
 }
 
+int			gnl_loop(t_list *current, char *buf, int *read_size)
+{
+	char	*tmp;
+
+	if (current->content != NULL)
+	{
+		tmp = ft_strdup(current->content);
+		free(current->content);
+		buf[*read_size] = '\0';
+		PROTECT_N1((current->content = ft_strjoin(tmp, buf)));
+		free(tmp);
+	}
+	else
+	{
+		buf[*read_size] = '\0';
+		tmp = ft_strnew(BUFF_SIZE);
+		PROTECT_N1((current->content = ft_strjoin(tmp, buf)));
+		free(tmp);
+	}
+	if (ft_strchr(buf, '\n'))
+		return (0);
+	return (0);
+}
+
 int				get_next_line(const int fd, char **line)
 {
-	int				read_size;
-	char			buf[BUFF_SIZE + 1];
-	static t_list	*head;
-	t_list			*current;
-	char			*tmp;
+	int		read_size;
+	char	buf[BUFF_SIZE + 1];
+	static	t_list *head;
+	t_list	*current;
 
 	PROTECT_N2(line, fd, (read(fd, buf, 0)));
 	current = file_manage(&head, fd);
 	while ((read_size = read(fd, buf, BUFF_SIZE)))
 	{
-		if (current->content != NULL)
-		{
-			tmp = ft_strdup(current->content);
-			free(current->content);
-			buf[read_size] = '\0';
-			PROTECT_N1((current->content = ft_strjoin(tmp, buf)));
-			free(tmp);
-		}
-		else
-		{
-			buf[read_size] = '\0';
-			tmp = ft_strnew(BUFF_SIZE);
-			PROTECT_N1((current->content = ft_strjoin(tmp, buf)));
-			free(tmp);
-		}
-		if (ft_strchr(buf, '\n'))
-			break ;
+		if ((gnl_loop(current, buf, &read_size)) == -1)
+			return (-1);
 	}
 	if (read_size < BUFF_SIZE && !ft_strlen(current->content))
 		return (0);

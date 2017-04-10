@@ -2,8 +2,8 @@
 
 void	fdf_center_place(t_mlx *data)
 {
-	int xdif;
-	int ydif;
+	int		xdif;
+	int		ydif;
 
 	xdif = data->wcenx - data->xcen;
 	ydif = data->wceny - data->ycen;

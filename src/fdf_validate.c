@@ -4,9 +4,9 @@
 ** count_symbols
 ** Counts number of sequential symbols delimited by spaces.
 */
-size_t	count_symbols(t_map *map)
+static size_t	count_symbols(t_map *map)
 {
-	char 	*s;
+	char	*s;
 	size_t	i;
 	size_t	nbr;
 
@@ -34,7 +34,7 @@ size_t	count_symbols(t_map *map)
 ** And checks the number of the given sequential symbols.
 ** If the number is less than or equal to 1 the program terminates.
 */
-void	fdf_validate(t_map *map)
+void			fdf_validate(t_map *map)
 {
 	int i;
 
@@ -46,7 +46,6 @@ void	fdf_validate(t_map *map)
 		if (map->map_x == 0)
 		{
 			map->map_x = count_symbols(map);
-//			fdf_nbr_error(map, map->map_x);
 			free(map->line);
 			map->map_y++;
 			continue;

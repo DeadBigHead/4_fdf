@@ -22,12 +22,6 @@
 # include "libft.h"
 # include "get_next_line.h"
 
-
-#include <stdio.h>
-
-typedef unsigned int	t_ui;
-typedef unsigned char	t_ch;
-
 # define USAGE 1
 # define LINE 2
 # define COLOR 3
@@ -39,17 +33,10 @@ typedef unsigned char	t_ch;
 # define OONE 9
 # define TRUE 1
 # define FALSE -1
-
 # define MINZ -100
 # define MAXZ 100
 # define HEIGHT 900
 # define WIDTH 1500
-/*
-** http://www.cssmatic.com/gradient-generator#'\-moz\-linear\-gradient\%28left\%2C\%20rgba\%28238\%2C209\%2C17\%2C1\%29\%200\%25\%2C\%20rgba\%28238\%2C28\%2C17\%2C1\%29\%2051\%25\%2C\%20rgba\%2881\%2C39\%2C206\%2C1\%29\%20100\%25\%29\%3B'
-** rgb(255,208,0) yellow - negative
-** rgb(238,28,17) red - zeroes
-** rgb(81,39,206) blue - top
-*/
 /*
 ** zeroes
 */
@@ -68,7 +55,9 @@ typedef unsigned char	t_ch;
 # define RED2 81
 # define GREEN2 39
 # define BLUE2 206
-
+/*
+** Keys
+*/
 # define ESC 53
 # define UP 126
 # define DOWN 125
@@ -82,14 +71,12 @@ typedef unsigned char	t_ch;
 # define SKEY 1
 # define ZKEY 6
 # define XKEY 7
-
+/*
+** Radians
+*/
 # define PI 3.14159265358979323846
 # define DTR(angleDegrees) (angleDegrees * PI / 180.0)
 # define DEGREE 5
-
-
-//# define
-//# define
 
 /*
 ** Single pixel data.
@@ -104,7 +91,9 @@ typedef struct			s_pixel
 	int					blue;
 	int					alpha;
 }						t_pixel;
-
+/*
+** Bresenham struct.
+*/
 typedef struct			s_b
 {
 	int					dlx;
@@ -197,12 +186,9 @@ void					fdf_open_file(t_map *map);
 void					fdf_gnl_error(t_map *map, int i);
 void					fdf_nbr_error(t_map *map, size_t i);
 /*
-** Validation.
+** Parsing and validation.
 */
 void					fdf_validate(t_map *map);
-/*
-** File conversion to struct.
-*/
 void					fdf_pixel_malloc(t_map *map, t_mlx *pixel);
 void					fdf_pixel_read(t_map *map, t_mlx *pixel);
 void					fdf_pixel_color_z(t_map *map);
@@ -211,30 +197,35 @@ void					fdf_my_color(t_map	*map, t_mlx *data);
 int						ft_ishex(char c);
 int						ft_atoi_hex(char *s);
 /*
-** Window
+** Initial run
 */
-void					fdf_win_setup(t_mlx *mlx);
-void					fdf_ui(t_mlx *mlx);
-
 void					fdf_mlx_init(t_mlx	*mlx);
-void					fdf_first_draw(t_mlx *mlx, t_map *map);
-void					fdf_redraw(t_mlx *mlx);
-void					fdf_redraw_zoom(t_mlx *mlx);
-void					fdf_move(int kcode, t_mlx *mlx);
-void					fdf_zoom(int kcode, t_mlx *mlx);
+void					fdf_win_setup(t_mlx *mlx);
 void					fdf_zoom_auto_plus(t_mlx *mlx);
 void					fdf_zoom_auto_minus(t_mlx *mlx);
-void					fdf_rotate_x(int kcode, t_mlx *mlx);
-void					fdf_rotate_y(int kcode, t_mlx *mlx);
-void					fdf_rotate_z(int kcode, t_mlx *mlx);
-void					fdf_rotate(int kcode, t_mlx *data);
+void					fdf_first_draw(t_mlx *mlx, t_map *map);
 /*
-** Draw.
+** Draw and redraw
 */
 void					fdf_draw(t_mlx *pixel);
-int						fdf_key_core(int keycode, t_mlx *data);
 void					fdf_center_find(t_mlx *data);
 void					fdf_center_place(t_mlx *data);
 void					fdf_center_current(t_mlx *data);
 void					fdf_center_zero(t_mlx *data);
+void					fdf_redraw(t_mlx *mlx);
+void					fdf_redraw_zoom(t_mlx *mlx);
+/*
+** UI
+*/
+void					fdf_ui(t_mlx *mlx);
+/*
+** Keys, movement, rotation and scale.
+*/
+int						fdf_key_core(int keycode, t_mlx *data);
+void					fdf_move(int kcode, t_mlx *mlx);
+void					fdf_zoom(int kcode, t_mlx *mlx);
+void					fdf_rotate_x(int kcode, t_mlx *mlx);
+void					fdf_rotate_y(int kcode, t_mlx *mlx);
+void					fdf_rotate_z(int kcode, t_mlx *mlx);
+void					fdf_rotate(int kcode, t_mlx *data);
 #endif

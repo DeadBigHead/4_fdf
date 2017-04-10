@@ -2,8 +2,8 @@
 
 void	fdf_center_current(t_mlx *data)
 {
-	int xdif;
-	int ydif;
+	int		xdif;
+	int		ydif;
 
 	xdif = data->wxcur - data->xcen;
 	ydif = data->wycur - data->ycen;
