@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fdf_rotate_z.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mvlad <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/04/10 17:28:32 by mvlad             #+#    #+#             */
+/*   Updated: 2017/04/10 18:00:07 by mvlad            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
-static void fdf_z_positive(t_mlx *mlx)
+static void		fdf_z_positive(t_mlx *mlx)
 {
-	float	tmpy;
-	float	tmpx;
-	double	r_plus;
+	float			tmpy;
+	float			tmpx;
+	double			r_plus;
 
 	r_plus = DTR(DEGREE);
 	mlx->c = 0;
@@ -25,11 +37,11 @@ static void fdf_z_positive(t_mlx *mlx)
 	}
 }
 
-static void fdf_z_negative(t_mlx *mlx)
+static void		fdf_z_negative(t_mlx *mlx)
 {
-	float	tmpy;
-	float	tmpx;
-	double	r_minus;
+	float			tmpy;
+	float			tmpx;
+	double			r_minus;
 
 	r_minus = -DTR(DEGREE);
 	mlx->c = 0;
@@ -50,7 +62,7 @@ static void fdf_z_negative(t_mlx *mlx)
 	}
 }
 
-void	fdf_rotate_z(int kcode, t_mlx *mlx)
+void			fdf_rotate_z(int kcode, t_mlx *mlx)
 {
 	if (kcode == ZKEY)
 	{

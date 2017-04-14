@@ -1,11 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fdf_rotate_y.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mvlad <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/04/10 17:28:26 by mvlad             #+#    #+#             */
+/*   Updated: 2017/04/10 17:59:00 by mvlad            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
-static void 		fdf_y_positive(t_mlx *mlx)
+static void			fdf_y_positive(t_mlx *mlx)
 {
-
-	float	tmpz;
-	float	tmpx;
-	double	r_plus;
+	float				tmpz;
+	float				tmpx;
+	double				r_plus;
 
 	r_plus = DTR(DEGREE);
 	mlx->c = 0;
@@ -26,12 +37,11 @@ static void 		fdf_y_positive(t_mlx *mlx)
 	}
 }
 
-static void 		fdf_y_negative(t_mlx *mlx)
+static void			fdf_y_negative(t_mlx *mlx)
 {
-
-	float	tmpz;
-	float	tmpx;
-	double	r_minus;
+	float				tmpz;
+	float				tmpx;
+	double				r_minus;
 
 	r_minus = -DTR(DEGREE);
 	mlx->c = 0;

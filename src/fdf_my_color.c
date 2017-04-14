@@ -1,36 +1,49 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fdf_my_color.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mvlad <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/04/10 17:27:17 by mvlad             #+#    #+#             */
+/*   Updated: 2017/04/10 17:42:40 by mvlad            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
-static int		*find_min_max(t_map	*map, t_mlx *mlx)
+static int		*find_min_max(t_map *map, t_mlx *mlx)
 {
-	int *min_max;
-	int tmp[4];
+	int				*min_max;
+	size_t			tr[2];
+	int				tmp[2];
 
-	tmp[0] = 0;
-	tmp[1] = 0;
+	tr[0] = 0;
+	tr[1] = 0;
 	min_max = (int*)malloc(sizeof(int) * 2);
-	tmp[2] = mlx->m_pixels[tmp[0]][tmp[1]]->z;
-	tmp[3] = mlx->m_pixels[tmp[0]][tmp[1]]->z;
-	while (tmp[0] < map->map_y)
+	tmp[0] = mlx->m_pixels[tr[0]][tr[1]]->z;
+	tmp[1] = mlx->m_pixels[tr[0]][tr[1]]->z;
+	while (tr[0] < map->map_y)
 	{
-		tmp[1] = 0;
-		while (tmp[1] < map->map_x)
+		tr[1] = 0;
+		while (tr[1] < map->map_x)
 		{
-			if (mlx->m_pixels[tmp[0]][tmp[1]]->z < tmp[2])
-				tmp[2] = mlx->m_pixels[tmp[0]][tmp[1]]->z;
-			if (mlx->m_pixels[tmp[0]][tmp[1]]->z > tmp[3])
-				tmp[3] = mlx->m_pixels[tmp[0]][tmp[1]]->z;
-			tmp[1]++;
+			if (mlx->m_pixels[tr[0]][tr[1]]->z < tmp[0])
+				tmp[0] = mlx->m_pixels[tr[0]][tr[1]]->z;
+			if (mlx->m_pixels[tr[0]][tr[1]]->z > tmp[1])
+				tmp[1] = mlx->m_pixels[tr[0]][tr[1]]->z;
+			tr[1]++;
 		}
-		tmp[0]++;
+		tr[0]++;
 	}
-	min_max[0] = tmp[2];
-	min_max[1] = tmp[3];
+	min_max[0] = tmp[0];
+	min_max[1] = tmp[1];
 	return (min_max);
 }
 
-static int		*fdf_assign_color()
+static int		*fdf_assign_color(void)
 {
-	int		*rgb;
+	int				*rgb;
 
 	rgb = (int*)malloc(sizeof(int) * 12);
 	rgb[3] = RED0;
@@ -76,7 +89,7 @@ static void		fdf_get_color_plus(t_map *map, t_mlx *mlx, int *rgb)
 		mlx->m_pixels[map->c][map->r]->red = rgb[3];
 		mlx->m_pixels[map->c][map->r]->green = rgb[4];
 		mlx->m_pixels[map->c][map->r]->blue = rgb[5];
-		return;
+		return ;
 	}
 	rgb[0] = (rgb[3] - rgb[6]) * p + rgb[6];
 	rgb[1] = (rgb[4] - rgb[7]) * p + rgb[7];
@@ -86,9 +99,9 @@ static void		fdf_get_color_plus(t_map *map, t_mlx *mlx, int *rgb)
 	mlx->m_pixels[map->c][map->r]->blue = rgb[2];
 }
 
-void			fdf_my_color(t_map	*map, t_mlx *mlx)
+void			fdf_my_color(t_map *map, t_mlx *mlx)
 {
-	int		*rgb;
+	int				*rgb;
 
 	map->c = 0;
 	rgb = fdf_assign_color();
@@ -99,7 +112,7 @@ void			fdf_my_color(t_map	*map, t_mlx *mlx)
 		{
 			if (mlx->m_pixels[map->c][map->r]->red == 0
 					&& mlx->m_pixels[map->c][map->r]->green == 0
-					   && mlx->m_pixels[map->c][map->r]->blue == 0)
+					&& mlx->m_pixels[map->c][map->r]->blue == 0)
 			{
 				if (mlx->m_pixels[map->c][map->r]->z < 0)
 					fdf_get_color_minus(map, mlx, rgb);
@@ -110,5 +123,5 @@ void			fdf_my_color(t_map	*map, t_mlx *mlx)
 		}
 		map->c++;
 	}
-	free (rgb);
+	free(rgb);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fdf_rotate_x.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mvlad <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/04/10 17:28:21 by mvlad             #+#    #+#             */
+/*   Updated: 2017/04/10 18:07:56 by mvlad            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
 static void		fdf_x_positive(t_mlx *mlx)
@@ -5,7 +17,6 @@ static void		fdf_x_positive(t_mlx *mlx)
 	float	tmpy;
 	float	tmpz;
 	double	r_plus;
-
 
 	r_plus = DTR(DEGREE);
 	mlx->c = 0;

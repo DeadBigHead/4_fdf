@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fdf_pixel_color.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mvlad <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/04/10 17:27:31 by mvlad             #+#    #+#             */
+/*   Updated: 2017/04/10 17:38:19 by mvlad            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
 static void		color_support(t_map *map, int n, int k)
@@ -22,15 +34,15 @@ static void		zero_color(t_map *map, int i)
 	{
 		map->tmp_color[map->j] = 0;
 		map->j++;
-		return;
+		return ;
 	}
 }
 
 static void		present_color(t_map *map, int i)
 {
-	char	*tmp;
-	int		v;
-	int 	d;
+	char			*tmp;
+	int				v;
+	int				d;
 
 	v = map->end;
 	while (map->line[v] != 'x' && map->line[v] != '\0')

@@ -6,7 +6,7 @@
 /*   By: mvlad <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/24 15:58:07 by mvlad             #+#    #+#             */
-/*   Updated: 2017/03/02 17:49:37 by mvlad            ###   ########.fr       */
+/*   Updated: 2017/04/10 17:53:32 by mvlad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ static t_list	*file_manage(t_list **head, const int fd)
 	}
 	current = ft_lstnew("\0", file_des);
 	ft_lstadd(head, current);
-	*((char*)current->content) = 0;
+	current->content = 0;
 	current = *head;
 	return (current);
 }
 
-static int		gnl_magic(char **dst, char *src, const char delim)
+static size_t	gnl_magic(char **dst, char *src, const char delim)
 {
-	int				i;
+	size_t			i;
 	char			*tmp;
 
 	i = 0;
@@ -55,12 +55,11 @@ static int		gnl_magic(char **dst, char *src, const char delim)
 static void		gnl_i_ll_be_back(char **s, char delim)
 {
 	char			*tmp;
-	int				i;
-	int				len;
+	unsigned int	i;
+	size_t			len;
 
 	tmp = *s;
 	i = 0;
-	len = ft_strlen(tmp);
 	while (tmp[i])
 	{
 		if (tmp[i] == delim)
@@ -68,53 +67,63 @@ static void		gnl_i_ll_be_back(char **s, char delim)
 		i++;
 	}
 	i++;
+	len = ft_strlen(tmp) - i;
 	*s = ft_strsub(tmp, i, len);
 	free(tmp);
 }
 
-int			gnl_loop(t_list *current, char *buf, int *read_size)
+static int		gnl_loop(t_list *current, char *buf, ssize_t *read_size, int fd)
 {
-	char	*tmp;
+	char			*tmp;
 
-	if (current->content != NULL)
+	while ((*read_size = read(fd, buf, BUFF_SIZE)))
 	{
-		tmp = ft_strdup(current->content);
-		free(current->content);
-		buf[*read_size] = '\0';
-		PROTECT_N1((current->content = ft_strjoin(tmp, buf)));
-		free(tmp);
+		if (current->content != 0)
+		{
+			tmp = ft_strdup(current->content);
+			free(current->content);
+			buf[*read_size] = '\0';
+			PROTECT_N1((current->content = ft_strjoin(tmp, buf)));
+			free(tmp);
+		}
+		else
+		{
+			buf[*read_size] = '\0';
+			tmp = ft_strnew(BUFF_SIZE);
+			PROTECT_N1((current->content = ft_strjoin(tmp, buf)));
+			free(tmp);
+		}
+		if (ft_strchr(buf, '\n'))
+			return (0);
 	}
-	else
-	{
-		buf[*read_size] = '\0';
-		tmp = ft_strnew(BUFF_SIZE);
-		PROTECT_N1((current->content = ft_strjoin(tmp, buf)));
-		free(tmp);
-	}
-	if (ft_strchr(buf, '\n'))
-		return (0);
 	return (0);
 }
 
 int				get_next_line(const int fd, char **line)
 {
-	int		read_size;
-	char	buf[BUFF_SIZE + 1];
-	static	t_list *head;
-	t_list	*current;
+	int					k;
+	char				*buf;
+	static t_list		*head;
+	t_list				*current;
+	ssize_t				read_size;
 
+	if (BUFF_SIZE > 10000 || BUFF_SIZE < 1)
+		return (-1);
+	buf = (char*)malloc(sizeof(char) * BUFF_SIZE + 1);
 	PROTECT_N2(line, fd, (read(fd, buf, 0)));
 	current = file_manage(&head, fd);
-	while ((read_size = read(fd, buf, BUFF_SIZE)))
-	{
-		if ((gnl_loop(current, buf, &read_size)) == -1)
-			return (-1);
-	}
+	k = gnl_loop(current, buf, &read_size, fd);
+	if (k == -1)
+		return (-1);
 	if (read_size < BUFF_SIZE && !ft_strlen(current->content))
+	{
+		free(buf);
 		return (0);
+	}
 	read_size = gnl_magic(line, current->content, '\n');
 	(read_size < (int)ft_strlen(current->content))
 	? (gnl_i_ll_be_back((char**)&current->content, '\n'))
 	: (ft_strdel((char**)&current->content));
+	free(buf);
 	return (1);
 }

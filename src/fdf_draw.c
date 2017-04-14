@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fdf_draw.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mvlad <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/04/10 17:25:06 by mvlad             #+#    #+#             */
+/*   Updated: 2017/04/10 17:37:29 by mvlad            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
 static void		draw_corner(t_mlx *mlx)
@@ -17,8 +29,8 @@ static void		draw_corner(t_mlx *mlx)
 
 static void		draw_pixel(t_mlx *mlx, int flag, float p)
 {
-	size_t	i;
-	int 	rgb[3];
+	size_t			i;
+	int				rgb[3];
 
 	i = (mlx->y1 * mlx->line_sz + (mlx->x1 * (mlx->bit / 8)));
 	if (flag == 1 && i < mlx->total_size && mlx->x1 > 0 && mlx->x1 < WIDTH)
@@ -52,16 +64,16 @@ static void		draw_line(t_mlx *mlx)
 	mlx->b->er = mlx->b->dlx - mlx->b->dly;
 	while (mlx->x1 != mlx->x2 || mlx->y1 != mlx->y2)
 	{
-		mlx->b->i2 = sqrtf((mlx->x2 - mlx->x1) * (mlx->x2 - mlx->x1)
-				   + (mlx->y2 - mlx->y1) * (mlx->y2 - mlx->y1));
+		mlx->b->i2 = sqrtf((mlx->x2 - mlx->x1) * (mlx->x2 - mlx->x1) +
+				(mlx->y2 - mlx->y1) * (mlx->y2 - mlx->y1));
 		mlx->b->i3 = (mlx->b->i - mlx->b->i2) / mlx->b->i;
 		draw_pixel(mlx, 1, mlx->b->i3);
 		mlx->b->e2 = mlx->b->er * 2;
 		(mlx->b->e2 > -mlx->b->dly) ? (mlx->b->er -= mlx->b->dly) : 0;
 		(mlx->b->e2 > -mlx->b->dly) ? (mlx->x1 += mlx->b->snx) : 0;
 		if ((mlx->x1 < -(mlx->bound) || mlx->x1 > WIDTH + mlx->bound ||
-				mlx->y1 < -(mlx->bound)|| mlx->y1 > HEIGHT + mlx->bound))
-			return;
+					mlx->y1 < -(mlx->bound) || mlx->y1 > HEIGHT + mlx->bound))
+			return ;
 		if (mlx->b->e2 < mlx->b->dlx)
 		{
 			mlx->b->er += mlx->b->dlx;
@@ -93,8 +105,8 @@ static void		dup_coords(t_mlx *mlx, int flag)
 		mlx->g1 = mlx->m_pixels[mlx->c + 1][mlx->r]->green;
 		mlx->b1 = mlx->m_pixels[mlx->c + 1][mlx->r]->blue;
 	}
-	mlx->b->i = sqrtf((mlx->x2 - mlx->x1) * (mlx->x2 - mlx->x1)
-					  + (mlx->y2 - mlx->y1) * (mlx->y2 - mlx->y1));
+	mlx->b->i = sqrtf((mlx->x2 - mlx->x1) * (mlx->x2 - mlx->x1) +
+			(mlx->y2 - mlx->y1) * (mlx->y2 - mlx->y1));
 }
 
 void			fdf_draw(t_mlx *mlx)

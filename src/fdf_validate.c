@@ -1,21 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fdf_validate.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mvlad <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/04/10 17:28:50 by mvlad             #+#    #+#             */
+/*   Updated: 2017/04/10 17:57:09 by mvlad            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
 /*
 ** count_symbols
 ** Counts number of sequential symbols delimited by spaces.
 */
+
 static size_t	count_symbols(t_map *map)
 {
-	char	*s;
-	size_t	i;
-	size_t	nbr;
+	char			*s;
+	size_t			i;
+	size_t			nbr;
 
 	i = 0;
 	nbr = 0;
 	s = map->line;
 	while (s[i])
 	{
-		if(s[i] != ' ' && (s[i + 1] == ' ' || s[i + 1] == '\0'))
+		if (s[i] != ' ' && (s[i + 1] == ' ' || s[i + 1] == '\0'))
 			nbr++;
 		i++;
 	}
@@ -34,6 +47,7 @@ static size_t	count_symbols(t_map *map)
 ** And checks the number of the given sequential symbols.
 ** If the number is less than or equal to 1 the program terminates.
 */
+
 void			fdf_validate(t_map *map)
 {
 	int i;

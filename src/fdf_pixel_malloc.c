@@ -1,13 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fdf_pixel_malloc.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mvlad <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/04/10 17:27:48 by mvlad             #+#    #+#             */
+/*   Updated: 2017/04/10 17:54:06 by mvlad            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
 /*
 ** fdf_mal_pix
 ** Allocates memory for struct array @s_mlx->m_pixels.
 */
+
 void	fdf_pixel_malloc(t_map *map, t_mlx *pixel)
 {
-	int		i;
-	int		j;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
 	pixel->m_pixels = (t_pixel***)malloc(sizeof(t_pixel**) * map->map_y);

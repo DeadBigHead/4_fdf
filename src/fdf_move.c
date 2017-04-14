@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fdf_move.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mvlad <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/04/10 17:27:10 by mvlad             #+#    #+#             */
+/*   Updated: 2017/04/10 17:45:54 by mvlad            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
-static void 	fdf_move_up(t_mlx *mlx)
+static void		fdf_move_up(t_mlx *mlx)
 {
-	int c;
-	int r;
+	size_t			c;
+	size_t			r;
 
 	c = 0;
 	while (c < mlx->map_y)
@@ -19,10 +31,10 @@ static void 	fdf_move_up(t_mlx *mlx)
 	mlx->wycur -= 10;
 }
 
-static void 	fdf_move_down(t_mlx *mlx)
+static void		fdf_move_down(t_mlx *mlx)
 {
-	int c;
-	int r;
+	size_t			c;
+	size_t			r;
 
 	c = 0;
 	while (c < mlx->map_y)
@@ -38,10 +50,10 @@ static void 	fdf_move_down(t_mlx *mlx)
 	mlx->wycur += 10;
 }
 
-static void 	fdf_move_right(t_mlx *mlx)
+static void		fdf_move_right(t_mlx *mlx)
 {
-	int c;
-	int r;
+	size_t			c;
+	size_t			r;
 
 	c = 0;
 	while (c < mlx->map_y)
@@ -59,8 +71,8 @@ static void 	fdf_move_right(t_mlx *mlx)
 
 static void		fdf_move_left(t_mlx *mlx)
 {
-	int c;
-	int r;
+	size_t c;
+	size_t r;
 
 	c = 0;
 	while (c < mlx->map_y)

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fdf_win_setup.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mvlad <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/04/10 17:29:07 by mvlad             #+#    #+#             */
+/*   Updated: 2017/04/10 17:54:30 by mvlad            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
 /*
@@ -5,6 +17,7 @@
 ** Initializes window height and width, center of the window,
 ** and current center position.
 */
+
 void	fdf_win_setup(t_mlx *mlx)
 {
 	mlx->imgx = 0;

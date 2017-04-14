@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fdf_pixel_color_z.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mvlad <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/04/10 17:27:39 by mvlad             #+#    #+#             */
+/*   Updated: 2017/04/10 18:19:02 by mvlad            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
 static void		set_z_support(t_map *map)
@@ -12,22 +24,23 @@ static void		set_z(t_map *map)
 	int		nbr;
 
 	if (ft_isdigit(map->line[map->beg]) == 0 && (map->line[map->beg] != '-' &&
-			  ft_isdigit(map->line[map->beg + 1]) != 1))
+				ft_isdigit(map->line[map->beg + 1]) != 1))
 		set_z_support(map);
 	else if (ft_isdigit(map->line[map->beg]) == 1 ||
 			(map->line[map->beg] == '-' &&
 					ft_isdigit(map->line[map->beg + 1]) == 1))
 	{
 		map->end = map->beg;
-		while (ft_isdigit(map->line[map->end]) == 1 ||
-			   (map->line[map->end] == '-' &&
-			   ft_isdigit(map->line[map->end + 1]) == 1))
+		while (ft_isdigit(map->line[map->end]) == 1 || (map->line[map->end]
+					== '-' && ft_isdigit(map->line[map->end + 1]) == 1))
 			map->end++;
 		tmp = ft_strsub(map->line, map->beg, (map->end - map->beg));
 		nbr = ft_atoi(tmp);
 		map->tmp_z[map->i] = ft_atoi(tmp);
-		(nbr > MAXZ) ? (map->tmp_z[map->i] = MAXZ) : (map->tmp_z[map->i] = nbr);
-		(nbr < MINZ) ? (map->tmp_z[map->i] = MINZ) : (map->tmp_z[map->i] = nbr);
+		(nbr > MAXZ) ? (map->tmp_z[map->i] = MAXZ)
+			: (map->tmp_z[map->i] = nbr);
+		(nbr < MINZ) ? (map->tmp_z[map->i] = MINZ)
+			: (map->tmp_z[map->i] = nbr);
 		map->i++;
 		free(tmp);
 	}
@@ -38,7 +51,7 @@ void			fdf_pixel_color_z(t_map *map)
 	map->tmp = 0;
 	map->beg = map->end;
 	if (map->line[map->beg] == '\0' || map->ctrl == map->map_x)
-		return;
+		return ;
 	while (map->line[map->beg] != '\0' && map->line[map->beg] == ' ')
 		map->beg++;
 	set_z(map);

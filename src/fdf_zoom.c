@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fdf_zoom.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mvlad <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/04/10 17:29:21 by mvlad             #+#    #+#             */
+/*   Updated: 2017/04/10 18:09:27 by mvlad            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
 static void		fdf_scale(t_mlx *mlx, float n, int c, int r)
@@ -7,12 +19,12 @@ static void		fdf_scale(t_mlx *mlx, float n, int c, int r)
 	mlx->m_pixels[c][r]->z *= n;
 }
 
-static void 	fdf_scale_plus(t_mlx *mlx, float by)
+static void		fdf_scale_plus(t_mlx *mlx, float by)
 {
-	int 	c;
-	int 	r;
-	int 	tmpx;
-	int 	tmpy;
+	size_t			c;
+	size_t			r;
+	int				tmpx;
+	int				tmpy;
 
 	c = 0;
 	tmpx = mlx->wxcur;
@@ -33,12 +45,12 @@ static void 	fdf_scale_plus(t_mlx *mlx, float by)
 	mlx->wycur = tmpy;
 }
 
-static void 	fdf_scale_minus(t_mlx *mlx, float by)
+static void		fdf_scale_minus(t_mlx *mlx, float by)
 {
-	int 	c;
-	int 	r;
-	int 	tmpx;
-	int 	tmpy;
+	size_t			c;
+	size_t			r;
+	int				tmpx;
+	int				tmpy;
 
 	c = 0;
 	tmpx = mlx->wxcur;
@@ -61,7 +73,7 @@ static void 	fdf_scale_minus(t_mlx *mlx, float by)
 
 void			fdf_zoom(int kcode, t_mlx *mlx)
 {
-	int		x;
+	size_t	x;
 	int		i;
 
 	if (mlx->map_x > 300 || mlx->map_y > 300)

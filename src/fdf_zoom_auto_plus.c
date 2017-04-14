@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fdf_zoom_auto_plus.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mvlad <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/04/10 17:29:36 by mvlad             #+#    #+#             */
+/*   Updated: 2017/04/10 17:29:37 by mvlad            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
 static void		zoom_plus_y(t_mlx *mlx)
 {
-	int c;
-	int r;
+	size_t c;
+	size_t r;
 
 	while (mlx->m_pixels[mlx->map_y - 1][mlx->map_x - 1]->y < 250)
 	{
@@ -25,8 +37,8 @@ static void		zoom_plus_y(t_mlx *mlx)
 
 static void		zoom_plus_x(t_mlx *mlx)
 {
-	int c;
-	int r;
+	size_t c;
+	size_t r;
 
 	while (mlx->m_pixels[mlx->map_y - 1][mlx->map_x - 1]->x < 250)
 	{

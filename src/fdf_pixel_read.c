@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fdf_pixel_read.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mvlad <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/04/10 17:27:56 by mvlad             #+#    #+#             */
+/*   Updated: 2017/04/10 18:03:55 by mvlad            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
-
-static	void	set_color(t_map *map, t_mlx *mlx, int i)
+static void			set_color(t_map *map, t_mlx *mlx, int i)
 {
 	mlx->m_pixels[map->c][map->r]->red = map->tmp_color[i];
 	mlx->m_pixels[map->c][map->r]->green = map->tmp_color[i + 1];
@@ -9,7 +20,7 @@ static	void	set_color(t_map *map, t_mlx *mlx, int i)
 	mlx->m_pixels[map->c][map->r]->alpha = map->tmp_color[i + 3];
 }
 
-static	void	pixel_write_support(t_map *map)
+static void			pixel_write_support(t_map *map)
 {
 	get_next_line(map->fd, &map->line);
 	map->end = 0;
@@ -17,12 +28,12 @@ static	void	pixel_write_support(t_map *map)
 	map->j = 0;
 	map->tmp_color = (int*)malloc(sizeof(int) * (map->map_x * 4));
 	map->tmp_z = (int*)malloc(sizeof(int) * map->map_x);
-	if(map->tmp_z == NULL)
+	if (map->tmp_z == NULL)
 		fdf_error(MALLCHECK);
 	map->ctrl = 0;
 }
 
-static	void	fdf_pixel_write(t_map *map, t_mlx *mlx)
+static void			fdf_pixel_write(t_map *map, t_mlx *mlx)
 {
 	int	i;
 
@@ -49,7 +60,7 @@ static	void	fdf_pixel_write(t_map *map, t_mlx *mlx)
 	}
 }
 
-void			fdf_pixel_read(t_map *map, t_mlx *mlx)
+void				fdf_pixel_read(t_map *map, t_mlx *mlx)
 {
 	map->tmp = 0;
 	fdf_pixel_malloc(map, mlx);

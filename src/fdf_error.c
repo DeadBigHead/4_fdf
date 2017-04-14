@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fdf_error.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mvlad <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/04/10 17:25:17 by mvlad             #+#    #+#             */
+/*   Updated: 2017/04/10 17:47:26 by mvlad            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
 /*
@@ -5,9 +17,10 @@
 ** Outputs taken argument string, to the standard output.
 ** And terminates the program.
 */
+
 static void		error_exit(char *s)
 {
-	char	*use;
+	char			*use;
 
 	use = s;
 	write(1, use, ft_strlen(use));
@@ -18,6 +31,7 @@ static void		error_exit(char *s)
 ** fdf_error
 ** Takes an typedef int and sends the corresponding error line to error_exit.
 */
+
 void			fdf_error(int n)
 {
 	if (n == USAGE)
@@ -37,5 +51,7 @@ void			fdf_error(int n)
 	if (n == ZERO)
 		error_exit("Error: There is ZERO values. Exiting.\n");
 	if (n == OONE)
-		error_exit("Error: There is only ONE value. Exiting.\n");
+		error_exit("Error: Bad map. Exiting.\n");
+	if (n == BIG)
+		error_exit("Error: Map is too big. Exiting.\n");
 }

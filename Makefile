@@ -10,26 +10,43 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = fillit
+NAME = fdf
 SRC_DIR = ./src/
-OBJ_DIR = ./obj/
+OBJ_DIR = ./src/
 INC_DIR = ./inc/
 LIB_DIR = ./libft/
-LIB_INC = $(LIB_DIR)inc/
+LIB_INC = $(LIB_DIR)
 LIB_LIB = $(LIB_DIR)libft.a
 
-OBJ	=   fillit.o \
-		fillit_core.o \
-		fillit_find_dot.o \
-		map_control.o \
-		map_size.o \
-		map_generate.o \
-		map_print.o \
-		map_delete.o \
-		tetromino_set.o \
-		tetromino_delete.o \
-		ft_memalloc2.o \
-		ft_bzero2.o
+OBJ	=	fdf_center_current.o \
+		fdf_center_find.o \
+		fdf_center_place.o \
+		fdf_center_zero.o \
+		fdf_draw.o \
+		fdf_error_sup.o \
+		fdf_error.o \
+		fdf_key_core.o \
+		fdf_mlx.o \
+		fdf_move.o \
+		fdf_my_color.o \
+		fdf_pixel_color_z.o \
+		fdf_pixel_color.o \
+		fdf_pixel_malloc.o \
+		fdf_pixel_read.o \
+		fdf_rotate_x.o \
+		fdf_rotate_y.o \
+		fdf_rotate_z.o \
+		fdf_rotate.o \
+		fdf_ui.o \
+		fdf_validate.o \
+		fdf_win_setup.o \
+		fdf_zoom_auto_minus.o \
+		fdf_zoom_auto_plus.o \
+		fdf_zoom.o \
+		fdf.o \
+		ft_atoi_hex.o \
+		ft_ishex.o \
+		get_next_line.o
 
 
 LIB = $(LIB_DIR)libft.a
@@ -38,6 +55,7 @@ HEADERS	= $(INC_DIR)
 
 CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror
+MLX		= -lmlx -framework OpenGL -framework AppKit
 INC_OPT = -I $(LIB_INC) -I $(INC_DIR)
 OUT_OPT = -o
 OBJ_OPT = $< -o $@
@@ -52,7 +70,7 @@ all: $(NAME)
 
 $(NAME): $(addprefix $(OBJ_DIR), $(OBJ))
 	$(MAKE) -C ./libft/
-	$(CC) $(CFLAGS) $(LIB_LIB) $^ $(OUT_OPT) $(NAME)
+	$(CC) $(MLX) $(CFLAGS) $(LIB_LIB) $^ $(OUT_OPT) $(NAME)
 
 clean:
 	$(RMF) $(addprefix $(OBJ_DIR), $(OBJ))

@@ -13,9 +13,6 @@
 #ifndef FDF_FDF_H
 # define FDF_FDF_H
 
-# include <stdlib.h>
-# include <string.h>
-# include <unistd.h>
 # include <math.h>
 # include <fcntl.h>
 # include <mlx.h>
@@ -31,30 +28,35 @@
 # define GNL 7
 # define ZERO 8
 # define OONE 9
+# define BIG 10
 # define TRUE 1
 # define FALSE -1
 # define MINZ -100
 # define MAXZ 100
 # define HEIGHT 900
 # define WIDTH 1500
+
 /*
 ** zeroes
 */
 # define RED0 232
 # define GREEN0 153
 # define BLUE0 25
+
 /*
 ** positive
 */
 # define RED1 238
 # define GREEN1 28
 # define BLUE1 17
+
 /*
 ** negative
 */
 # define RED2 81
 # define GREEN2 39
 # define BLUE2 206
+
 /*
 ** Keys
 */
@@ -71,6 +73,7 @@
 # define SKEY 1
 # define ZKEY 6
 # define XKEY 7
+
 /*
 ** Radians
 */
@@ -123,9 +126,9 @@ typedef struct			s_mlx
 	char				*str;
 	int					bit;
 	int					line_sz;
-	int 				end;
-	int 				imgx;
-	int 				imgy;
+	int					end;
+	int					imgx;
+	int					imgy;
 	size_t				map_x;
 	size_t				map_y;
 	int					x1;
@@ -138,20 +141,20 @@ typedef struct			s_mlx
 	int					r1;
 	int					g1;
 	int					b1;
-	int 				c;
-	int 				r;
-	size_t 				total_size;
-	int 				xcen;
-	int 				ycen;
-	int 				wcenx;
-	int 				wceny;
-	int 				width;
-	int 				height;
-	int 				wxcur;
-	int 				wycur;
+	size_t				c;
+	size_t				r;
+	size_t				total_size;
+	int					xcen;
+	int					ycen;
+	int					wcenx;
+	int					wceny;
+	int					width;
+	int					height;
+	int					wxcur;
+	int					wycur;
 	int					zoom;
-	long 				bound;
-	char 				**name;
+	long				bound;
+	char				**name;
 }						t_mlx;
 
 /*
@@ -159,21 +162,21 @@ typedef struct			s_mlx
 */
 typedef struct			s_map
 {
-	int 				c;
-	int 				r;
-	int 				*tmp_z;
-	int 				*tmp_color;
-	int 				end;
-	int 				beg;
-	int 				i;
-	int 				j;
-	int 				ctrl;
-	int 				fd;
+	size_t				c;
+	size_t				r;
+	int					*tmp_z;
+	int					*tmp_color;
+	int					end;
+	int					beg;
+	int					i;
+	int					j;
+	size_t				ctrl;
+	int					fd;
 	size_t				tmp;
 	size_t				map_x;
 	size_t				map_y;
-	char 				*line;
-	char 				**name;
+	char				*line;
+	char				**name;
 }						t_map;
 
 /*
@@ -199,7 +202,7 @@ int						ft_atoi_hex(char *s);
 /*
 ** Initial run
 */
-void					fdf_mlx_init(t_mlx	*mlx);
+void					fdf_mlx_init(t_mlx *mlx, t_map *map);
 void					fdf_win_setup(t_mlx *mlx);
 void					fdf_zoom_auto_plus(t_mlx *mlx);
 void					fdf_zoom_auto_minus(t_mlx *mlx);
